@@ -66,7 +66,7 @@
                     {{ Auth::guard('admin')->user()->name }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{{ route('seller.logout') }}"
+                    <li><a class="dropdown-item" href="{{ route('admin.logout') }}"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                         <form action="{{ route('admin.logout') }}" method="post" class="d-none"
                             id="logout-form">@csrf</form>

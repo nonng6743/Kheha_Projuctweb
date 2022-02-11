@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager Dashboard</title>
+    <title>Manager CreateAreas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
@@ -151,93 +151,93 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('manager.home') }}">หน้าเเรก</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">บัญชีร้านค้าที่รออนุมัติ</li>
+                        <li class="breadcrumb-item active" aria-current="page">สร้างโปรโมชั่นสำหรับเว็บ</li>
                     </ol>
                 </nav>
-                <h1 class="h2">รายชื่อร้านค้าที่รอการอนุมัติ</h1>
+
+                <h1 class="h2">สร้างโปรโมชั่นสำหรับเว็บ</h1>
                 <br>
-                @if ($user_seller)
-                    <div class="row">
-                        <div class="col-12  ">
-                            <div class="card">
-                                <h5 class="card-header">รายละเอียดรายชื่อร้านค้าที่รอการอนุมัติ</h5>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ลำดับ</th>
-                                                    <th scope="col">ชื่อ - นามสกุล</th>
-                                                    <th scope="col">เบอร์</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">รูป</th>
-                                                    <th scope="col">อนุมัติ</th>
-                                                    <th scope="col">ลบ</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        <br>
-                                        <h4>ไม่มีรายชื่อร้านค้าที่การอนุมัติ</h4>
-                                        <br>
+                <div class="col-12 col-xl mb-4 mb-lg-0">
+                    <div class="card">
+                        <h5 class="card-header">รายละเอียดการสร้างโปรโมชั่นสำหรับเว็บ</h5>
+                        <form action="{{ route('manager.createarea') }}" class="form-contact" method="post"
+                            autocomplete="off" enctype="multipart/form-data">
+                            @if (Session::get('success'))
+                                <br>
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
+                            @endif
+                            @if (Session::get('fail'))
+                                <div class="alert alert-danger">
+                                    {{ Session::get('fail') }}
+                                </div>
+                            @endif
+
+                            @csrf
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 py-2">
+                                        <label for="namearea" class="fg-grey">ชื่อเเผงร้านค้า</label>
+                                        <input type="text" class="form-control" id="namearea"
+                                            name="namearea" value="{{ old('namearea') }}">
+                                        <span class="text-danger">@error('namearea'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+                                    <div class="col-12 py-2">
+                                        <label for="detail" class="fg-grey">รายละเอียดเเผงร้านค้า</label>
+                                        <input type="text" class="form-control" id="detail"
+                                            name="detail" value="{{ old('detail') }}">
+                                        <span class="text-danger">@error('detail'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+                                    <div class="col-12 py-2">
+                                        <label for="scale" class="fg-grey">ขนาดเเผงร้านค้า</label>
+                                        <input type="text" class="form-control" id="scale"
+                                            name="scale" value="{{ old('scale') }}">
+                                        <span class="text-danger">@error('scale'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+                                    <div class="col-12 py-2">
+                                        <label for="rentalfee" class="fg-grey">ราคาค่าเช่าเเผงร้านค้า</label>
+                                        <input type="number" class="form-control" id="rentalfee"
+                                            name="rentalfee" value="{{ old('rentalfee') }}">
+                                        <span class="text-danger">@error('rentalfee'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+                                    <div class="col-12 py-2">
+                                        <label for="lat" class="fg-grey">lat</label>
+                                        <input type="text" class="form-control" id="lat"
+                                            name="lat" value="{{ old('lat') }}">
+                                        <span class="text-danger">@error('lat'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+                                    <div class="col-12 py-2">
+                                        <label for="long" class="fg-grey">long	</label>
+                                        <input type="text" class="form-control" id="long"
+                                            name="long" value="{{ old('long') }}">
+                                        <span class="text-danger">@error('long'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+
+
+                                    <div class="col-12 py-2">
+                                        <label for="image" class="fg-grey">รูปเเผงร้านค้า</label>
+                                        <input type="file" class="form-control" id="image" name="image"
+                                            value="{{ old('image') }}">
+                                        <span class="text-danger">@error('image'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <button type="submit" class="btn btn-primary px-5">สร้างเเผงร้านค้า</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                @else
-                    <div class="row">
-                        <div class="col-12  ">
-                            <div class="card">
-                                <h5 class="card-header">รายละเอียดรายชื่อร้านค้าที่รอการอนุมัติ</h5>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ลำดับ</th>
-                                                    <th scope="col">ชื่อ - นามสกุล</th>
-                                                    <th scope="col">เบอร์</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">รูป</th>
-                                                    <th scope="col">อนุมัติ</th>
-                                                    <th scope="col">ลบ</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php($i = 1)
-                                                @foreach ($user_seller as $row)
-                                                    <tr>
-                                                        <td>{{ $i++ }}</td>
-                                                        <td>{{ $row->firstname }} {{ $row->lastname }}</td>
-                                                        <td>{{ $row->phone }}</td>
-                                                        <td>{{ $row->email }}</td>
-                                                        <td>
-                                                            <img src="/images/profileseller/{{ $row->image }}" alt=""
-                                                                width="70px" height="70px">
-                                                        </td>
-                                                        <td><a href="{{ url('manager/editseller/' . $row->id) }}"
-                                                                class="btn btn-warning">เเก้ไข</a></td>
-                                                        <td><a href="{{ url('manager/deleteseller/' . $row->id) }}"
-                                                                class="btn btn-danger"
-                                                                onclick="return confirm('คุณต้องการลบข้อมูลสินค้านี้หรือไม่ ?')">ลบ</a>
-                                                        </td>
+                </div>
 
 
-                                                    </tr>
-
-                                                @endforeach
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
 
             </main>

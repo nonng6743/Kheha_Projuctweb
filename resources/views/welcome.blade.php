@@ -489,7 +489,7 @@
             data-bs-interval="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/images/promotionweb/1724451842968813.png" class="d-block w-100" alt="...">
+                    <img src="/images/promotionweb/โปรโมชั่น.png" class="d-block w-100" alt="...">
                 </div>
 
                 @foreach ($allpromotions as $row)
