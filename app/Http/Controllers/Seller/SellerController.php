@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\Reserve_area;
 use App\Models\Seller;
 use App\Models\Shop;
 use App\Models\Subcategorie;
@@ -28,8 +30,6 @@ class SellerController extends Controller
         $counts = $shops->count();
         return view('dashboard.seller.homeshop', compact('counts'), compact('shops'));
     }
-
-
 
     function homecreateproduct(Request $request)
     {
@@ -67,7 +67,22 @@ class SellerController extends Controller
         return view('dashboard.seller.homeproducts', compact('counts'), compact('products'));
     }
 
-    function create(Request $request)
+    public function addarea(Request $request)
+    {
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('user_id', $id_seller)->get();
+        $counts = $shops->count();
+        $areas = Area::where('id_seller', 0)->get();
+        $countareas = $areas->count();
+        $check_reservearea = Reserve_area::where('id_seller', $id_seller)->get();
+        $countcheck_reservearea = $check_reservearea->count();
+        
+        $check_area = Area::where('id_seller', $id_seller)->get();
+        $countcheck_area = $check_area->count();
+        return view('dashboard.seller.addarea', compact('counts', 'areas','countareas', 'countcheck_reservearea','countcheck_area'));
+    }
+
+    public function create(Request $request)
     {
         //Validate Inputs
         $request->validate([
@@ -278,7 +293,7 @@ class SellerController extends Controller
         ],);
         $image = $request->file('image');
 
-        if($image){
+        if ($image) {
             $image = $request->file('image');
             $name_gen = hexdec(uniqid());
             $img_ext = strtolower($image->getClientOriginalExtension());
@@ -292,18 +307,16 @@ class SellerController extends Controller
                 'nameproduct' => $request->nameproduct,
                 'detail' => $request->detail,
                 'price' => $request->price,
-                'image'=> $img,
+                'image' => $img,
             ]);
 
             $old_image = $request->old_image;
-            unlink('images/products_seller/'.$old_image);
+            unlink('images/products_seller/' . $old_image);
             $image->move($upload_location, $img);
 
             echo "<script>alert('อัพเดตข้อมูลสินค้าสำเร็จ')</script>";
             echo "<script>window.location.href='/seller/homeproducts'</script>";
-
-
-        }else{
+        } else {
             $update = Product::find($id)->update([
                 'nameproduct' => $request->nameproduct,
                 'detail' => $request->detail,
@@ -312,17 +325,30 @@ class SellerController extends Controller
             echo "<script>alert('อัพเดตข้อมูลสินค้าสำเร็จ')</script>";
             echo "<script>window.location.href='/seller/homeproducts'</script>";
         }
-
     }
 
-    public function deleteproducts($id){
+    public function deleteproducts($id)
+    {
         $img = Product::find($id)->image;
-        unlink('images/products_seller/'.$img);
+        unlink('images/products_seller/' . $img);
 
-        $delete=Product::find($id)->delete();
+        $delete = Product::find($id)->delete();
         echo "<script>alert('ลบข้อมูลสินค้าสำเร็จ')</script>";
         echo "<script>window.location.href='/seller/homeproducts'</script>";
-
     }
 
+    public function area_add($id){
+        $id_seller = Auth::guard('seller')->user()->id;
+        $reserve_areas = new Reserve_area();
+        $reserve_areas->id_seller = $id_seller;
+        $reserve_areas->id_area = $id;
+        $save = $reserve_areas->save();
+
+        if ($save) {
+            echo "<script>alert('จองเเผงรร้านค้าสำเร็จ')</script>";
+            echo "<script>window.location.href='/seller/home'</script>";
+        } else {
+            return redirect()->back()->with('fail', 'ขออภัยไม่สามารถเพิ่มสินค้าได้');
+        }
+    }
 }

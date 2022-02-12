@@ -128,7 +128,6 @@
                                         <span class="ml-2">ร้านค้าของคุณ</span>
                                     </a>
                                 </li>
-
                             @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('seller.createproduct') }}">
@@ -142,7 +141,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.products')}}">
+                                <a class="nav-link" href="{{ route('seller.products') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-shopping-cart">
@@ -154,6 +153,19 @@
                                     <span class="ml-2">สินค้าของคุณ</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('seller.addarea') }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-layers">
+                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                        <polyline points="2 17 12 22 22 17"></polyline>
+                                        <polyline points="2 12 12 17 22 12"></polyline>
+                                    </svg>
+                                    <span class="ml-2">จองเเผงร้านค้า</span>
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -192,18 +204,7 @@
                                     <span class="ml-2">Reports</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-layers">
-                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                        <polyline points="2 17 12 22 22 17"></polyline>
-                                        <polyline points="2 12 12 17 22 12"></polyline>
-                                    </svg>
-                                    <span class="ml-2">Integrations</span>
-                                </a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="btn btn-sm btn-secondary ml-3 mt-2"
                                     href="https://themesberg.com/blog/bootstrap/simple-bootstrap-5-dashboard-tutorial">
@@ -244,13 +245,19 @@
                             <div class="card-body">
                                 @foreach ($shops as $row)
                                     <h5>ชื่อร้านค้าของท่าน : {{ $row->nameshop }}</h5>
+                                    @if ($row->area_id === 0)
+                                    <h5>เเผงร้านค้าของคุณ : ไม่มีเเผงร้านค้าที่จองไว้ </h5>
+                                    @else
+                                    <h5>เเผงร้านค้าของคุณ : {{ $row->area->namearea}} </h5>
+                                    @endif
                                     <br>
                                     <h5>รูปภาพร้านค้าของท่าน</h5>
-                                    <img src="/images/shops_seller/{{ $row->image }}" alt=""
-                                    width="450px" height="450px">
-
-
+                                    <img src="/images/shops_seller/{{ $row->image }}" alt="" width="450px"
+                                        height="450px">
+                                    <br>
                                 @endforeach
+
+
 
 
                             </div>

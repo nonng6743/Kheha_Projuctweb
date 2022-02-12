@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crate Shop</title>
+    <title>Seller Addarea</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
@@ -128,7 +128,6 @@
                                         <span class="ml-2">ร้านค้าของคุณ</span>
                                     </a>
                                 </li>
-
                             @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('seller.createproduct') }}">
@@ -142,7 +141,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.products')}}">
+                                <a class="nav-link" href="{{ route('seller.products') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-shopping-cart">
@@ -155,7 +154,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.addarea')}}">
+                                <a class="nav-link" href="{{ route('seller.addarea') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-layers">
@@ -244,104 +243,75 @@
                 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('seller.home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">สร้างร้านค้าของคุณ</li>
+                            <li class="breadcrumb-item"><a href="{{ route('seller.home') }}">หน้าเเรก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">จองเเผงร้านค้า</li>
                         </ol>
                     </nav>
-                    <h1 class="h2">สร้างร้านค้าของคุณ</h1>
+                    <h1 class="h2">จองเเผงร้านค้า</h1>
                     <br>
                     <div class="col-12 col-xl mb-4 mb-lg-0">
                         <div class="card">
-                            <h5 class="card-header">รายละเอียดการสร้างร้านค้าของคุณ</h5>
-                            <div class="card-body">
-                                <div class="row">
-                                    <form action="{{ route('seller.createshop') }}" class="form-contact"
-                                        method="post" autocomplete="off" enctype="multipart/form-data">
-                                        @if (Session::get('success'))
-                                            <div class="alert alert-success">
-                                                {{ Session::get('success') }}
-                                            </div>
+                            <h5 class="card-header">ข้อมูลรายละเอียดจองเเผงร้านค้าของคุณ</h5>
+                            <div class="card-body ">
+                                @if ($countcheck_area > 0)
+                                    <br>
+                                    <h3>การจองเเผงร้านค้าได้รับการอนุมัติเรียบร้อยเเล้ว</h3>
+                                    <br>
+                                @else
+                                    @if ($countareas === 0)
+                                        <br>
+                                        <h3>ไม่มีเเผงร้านค้าที่สามารถจองได้ในขณะนี้</h3>
+                                        <br>
+                                    @else
+                                        @if ($countcheck_reservearea > 0)
+                                            <br>
+                                            <h3>จองเเผงร้านค้าสำเร็จเเล้วกรุณารอการอนุมัติจากผู้จัดการตลาด</h3>
+                                            <br>
+                                        @else
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">ลำดับ</th>
+                                                        <th scope="col">รูปเเผงร้านค้า</th>
+                                                        <th scope="col">ชื่อเเผงร้านค้า</th>
+                                                        <th scope="col">รายละเอียดเเผงร้านค้า</th>
+                                                        <th scope="col">ขนาดของเเผง</th>
+                                                        <th scope="col">ราคาค่าเช่า</th>
+                                                        <th scope="col">เเก้ไข</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php($i = 1)
+                                                    @foreach ($areas as $row)
+                                                        <tr>
+                                                            <th>{{ $i++ }}</th>
+                                                            <td>
+                                                                <img src="/images/areasshop/{{ $row->image }}" alt=""
+                                                                    width="70px" height="70px">
+                                                            </td>
+                                                            <td>{{ $row->namearea }}</td>
+                                                            <td>{{ $row->detail }}</td>
+                                                            <td>{{ $row->scale }}</td>
+                                                            <td>{{ $row->rentalfee }}</td>
+                                                            <td><a href="{{ url('seller/area_add/' . $row->id) }}"
+                                                                    class="btn btn-warning">จองเเผงร้านค้า</a></td>
+
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         @endif
-                                        @if (Session::get('fail'))
-                                            <div class="alert alert-danger">
-                                                {{ Session::get('fail') }}
-                                            </div>
-                                        @endif
+                                    @endif
 
-                                        @csrf
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-12 py-2">
-                                                    <label for="nameshop"
-                                                        class="fg-grey">ชื่อร้านค้าของท่าน</label>
-                                                    <input type="text" class="form-control" id="nameshop"
-                                                        name="nameshop" value="{{ old('nameshop') }}">
-                                                    <span class="text-danger">@error('nameshop'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 py-2">
-                                                    <label for="category_type"
-                                                        class="fg-grey">ประเภทร้านค้า</label>
-                                                    <select class="form-control" type="category_type"
-                                                        id="category_type" name="category_type"
-                                                        value="{{ old('category_type') }}">
-                                                        @foreach ($categories as $row)
-                                                            <option value="{{ $row->namecategory }}">
-                                                                {{ $row->namecategory }}</option>
-                                                        @endforeach
-                                                    </select>
-
-                                                    <span
-                                                        class="text-danger">@error('category_type'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 py-2">
-                                                    <label class="fg-grey">ตำเเหน่งร้านค้าของท่าน</label>
-                                                </div>
-                                                <div class="col-sm-6 py-2">
-                                                    <label for="lat" class="fg-grey">Latitude</label>
-                                                    <input type="text" class="form-control" id="lat" name="lat"
-                                                        value="{{ old('lat') }}">
-                                                    <span class="text-danger">@error('lat'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-sm-6 py-2">
-                                                    <label for="long" class="fg-grey">Longitude</label>
-                                                    <input type="text" class="form-control" id="long" name="long"
-                                                        value="{{ old('long') }}">
-                                                    <span class="text-danger">@error('long'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 py-2">
-                                                    <label for="image"
-                                                        class="fg-grey">อัพโหลดรูปภาพของคุณ</label>
-                                                    <input type="file" class="form-control" id="image" name="image"
-                                                        value="{{ old('image') }}">
-                                                    <span class="text-danger">@error('image'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 mt-3">
-                                                    <button type="submit"
-                                                        class="btn btn-primary px-5">สร้างร้านค้า</button>
-                                                </div>
-
-
-
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                </div>
+                                @endif
                             </div>
                         </div>
-
                     </div>
 
-
-
-
-                </main>
             </div>
+
+            </main>
+        </div>
         </div>
     @endif
 

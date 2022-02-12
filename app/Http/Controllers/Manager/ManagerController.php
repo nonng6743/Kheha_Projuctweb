@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Manager;
 use App\Models\Promotion;
+use App\Models\Reserve_area;
 use App\Models\Seller;
+use App\Models\Shop;
 use GuzzleHttp\Promise\Promise;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,7 +82,26 @@ class ManagerController extends Controller
     {
         return view('dashboard.manager.createarea');
     }
+    public function approveareas(Request $request)
+    {
+        $areas = Reserve_area::all();
+        $countareas = $areas->count();
+        return view('dashboard.manager.approveareas', compact('areas','countareas'));
+    }
 
+    public function addarea($id,$id_area, $id_seller)
+    {
+        $user_id = $id_seller;
+        $update = Area::find($id)->update([
+            'id_seller' => $id_seller
+        ]);
+        $updateshop = Shop::find($user_id)->update([
+            'area_id' => $id_area
+        ]);
+        $delete = Reserve_area::find($id)->delete();
+        echo "<script>alert('อัพเดตข้อมูลสำเร็จ')</script>";
+        echo "<script>window.location.href='/manager/home'</script>";
+    }
 
     function createpromotion(Request $request)
     {
@@ -147,7 +168,7 @@ class ManagerController extends Controller
         $upload_location = 'images/areasshop/';
         $full_path = $upload_location . $img;
 
-        $seller_id = Auth::guard('manager')->user()->id;
+
 
         $area = new Area();
         $area->namearea = $request->namearea;
@@ -157,7 +178,7 @@ class ManagerController extends Controller
         $area->lat = $request->lat;
         $area->long = $request->long;
         $area->image = $img;
-        $area->id_seller = $seller_id;
+
         $save = $area->save();
 
         if ($save) {

@@ -85,6 +85,8 @@ Route::prefix('seller')->name('seller.')->group(function () {
         Route::get('/homeproducts', [SellerController::class, 'homeproducts'])->name('products');
         Route::get('/editproduct/{id}', [SellerController::class, 'editproduct']);
         Route::get('/deleteproducts/{id}',[SellerController::class,'deleteproducts']);
+        Route::get('/addarea', [SellerController::class, 'addarea'])->name('addarea');
+        Route::get('/area_add/{id}', [SellerController::class, 'area_add'])->name('area_add');
 
 
         Route::post('/createshop', [SellerController::class, 'createshop'])->name('createshop');
@@ -110,6 +112,8 @@ Route::prefix('manager')->name('manager.')->group(function () {
         Route::get('/homepromotion', [ManagerController::class, 'homepromotion'])->name('homepromotion');
         Route::get('/deletepromotion/{id}',[ManagerController::class,'deletepromotion']);
         Route::get('/createareas', [ManagerController::class, 'createareas'])->name('createareas');
+        Route::get('/approveareas', [ManagerController::class, 'approveareas'])->name('approveareas');
+        Route::get('/addarea/{id}/{id_area}/{id_seller}',[ManagerController::class,'addarea']);
 
         Route::post('/createarea', [ManagerController::class, 'createarea'])->name('createarea');
         Route::post('/homecreatepromotion', [ManagerController::class, 'createpromotion'])->name('createpromotion');
