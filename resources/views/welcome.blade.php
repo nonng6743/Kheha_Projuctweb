@@ -475,7 +475,6 @@
                                     <li class="nav-item">
                                         <a href="{{ route('user.register') }}" class="nav-link">สมัครสมาชิก</a>
                                     </li>
-
                                 @endif
                             @endauth
                         @endif
@@ -540,12 +539,11 @@
                             <div class="img-fluid mb-4">
                                 <img src="/images/categorys/{{ $row->image }}" alt="" width="120px" height="120px">
                                 <h5><a
-                                        href="productCategory.php?category_id={{ $row->namecategory }}">{{ $row->namecategory }}</a>
+                                        href="{{ url('productCategory/' . $row->namecategory) }}">{{ $row->namecategory }}</a>
                                 </h5>
                             </div>
                         </div>
                     </div>
-
                 @endforeach
 
             </div>
@@ -585,7 +583,6 @@
                                 <br />
                             </div>
                         </div>
-
                     @endforeach
 
                 </div>
@@ -611,9 +608,10 @@
                                 <div class="text-center">
                                     <br />
                                     <h4>{{ $row->nameproduct }}</h4>
-                                    <h6>{{ $row->detail }}</h6>
+                                    <h6>{{ Str::substr($row->detail, 0, 20, 'UTF-8') . '...' }}</h6>
                                     <span class="text-success">
-                                        <h5>ราคา {{ $row->price }} บาท</h5>
+                                        {{ number_format($row->price, 2) }}
+                                        บาท</h5>
                                     </span>
                                     <h6>มีผู้เข้าชมเเล้ว: {{ $row->view }} </h6>
                                     <a href="{{ url('productpage/' . $row->id) }}"
@@ -622,7 +620,6 @@
                                 <br />
                             </div>
                         </div>
-
                     @endforeach
 
                 </div>
@@ -648,9 +645,10 @@
                                 <div class="text-center">
                                     <br />
                                     <h4>{{ $row->nameproduct }}</h4>
-                                    <h6>{{ $row->detail }}</h6>
+                                    <h6>{{ Str::substr($row->detail, 0, 20, 'UTF-8') . '...' }}</h6>
                                     <span class="text-success">
-                                        <h5>ราคา {{ $row->price }} บาท</h5>
+                                        {{ number_format($row->price, 2) }}
+                                        บาท</h5>
                                     </span>
                                     <h6>มีผู้เข้าชมเเล้ว: {{ $row->view }} </h6>
                                     <a href="{{ url('productpage/' . $row->id) }}"
@@ -659,7 +657,6 @@
                                 <br />
                             </div>
                         </div>
-
                     @endforeach
 
                 </div>

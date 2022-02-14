@@ -23,6 +23,8 @@ use App\Http\Controllers\Manager\ManagerController;
 
 Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
 Route::get('/productpage/{id}', [RelationshipController::class, 'productname']);
+Route::get('/productCategory/{name}', [RelationshipController::class, 'productCategoryname']);
+Route::get('/productsubcategory/{name}', [RelationshipController::class, 'productsubcategoryname']);
 
 Auth::routes();
 

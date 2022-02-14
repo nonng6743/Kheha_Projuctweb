@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Actionclickuser;
 use App\Models\Actionuser;
+use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\Subcategorie;
 use Illuminate\Support\Facades\Auth;
 
 class RelationshipController extends Controller
@@ -97,5 +99,31 @@ class RelationshipController extends Controller
         ]);
 
         return view('pageproduct', compact('product'), compact('counts'));
+    }
+
+    public function productCategoryname($name){
+        $allcategories = Categorie::all();
+        $category = Categorie::where('namecategory',$name)->get();
+        foreach ($category as $row){
+            $id_category = $row->id;
+        }
+        $subcategory = Subcategorie::where('id_category', $id_category)->get();
+        return view('productCategory',compact('allcategories','subcategory','name'));
+    }
+    public function productsubcategoryname($name){
+        $allcategories = Categorie::all();
+        $subcategory_name = Subcategorie::where('namesubcategory', $name)->get();
+        foreach($subcategory_name as $row){
+            $id_subcategory = $row->id;
+            $id_category = $row->id_category;
+        }
+        $category = Categorie::where('id',$id_category)->get();
+        foreach ($category as $row){
+            $namecategory = $row->namecategory;
+        }
+
+        $subcategory = Subcategorie::where('id_category', $id_category)->get();
+        $product_type = Product::where('id_subcategory', $id_subcategory)->get();
+        return view('productsubcategory',compact('allcategories','product_type','subcategory','namecategory'));
     }
 }

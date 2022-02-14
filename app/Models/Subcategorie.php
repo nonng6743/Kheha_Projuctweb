@@ -12,4 +12,8 @@ class Subcategorie extends Model
         'id_category',
         'namesubcategory',
     ];
+
+    public function categories(){
+        return $this->hasOne(Categorie::class,'id','id_category');
+    }
 }
