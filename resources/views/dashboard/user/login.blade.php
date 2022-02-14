@@ -80,10 +80,10 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
                             </div>
                             <br>
-                            <a href="{{ route('user.register') }}">Create new Account</a>
+                            <a href="{{ route('user.register') }}">สมัครสมาชิก</a>
                         </form>
                     </div>
                 </div>

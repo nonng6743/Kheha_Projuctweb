@@ -12,8 +12,8 @@ class Shop extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id',
-        'area_id',
+        'id_seller',
+        'id_area',
         'nameshop',
         'category_type',
         'lat',
@@ -22,10 +22,10 @@ class Shop extends Model
     ];
 
     public function seller(){
-        return $this->hasOne(Seller::class,'id','user_id');
+        return $this->hasOne(Seller::class,'id','id_seller');
     }
     public function area(){
-        return $this->hasOne(Area::class,'id','area_id');
+        return $this->hasOne(Area::class,'id','id_area');
     }
 
 }

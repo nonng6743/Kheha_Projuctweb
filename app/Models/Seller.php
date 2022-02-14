@@ -20,11 +20,11 @@ class Seller extends Authenticatable
     protected $fillable = [
         'firstname',
         'lastname',
-        'IDCard',
+        'idcard',
         'phone',
         'gender',
         'birthdey',
-        'status',
+        'role',
         'image',
         'email',
         'password',

@@ -47,12 +47,14 @@ class AdminController extends Controller
     {
         //Validate Inputs
         $request->validate([
-            'name' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:8|max:30',
             'cpassword' => 'required|min:8|max:30|same:password',
         ], [
-            'name.required' => "กรุณาป้อนชื่อ",
+            'firstname.required' => "กรุณาป้อนชื่อ",
+            'lastname.required' => "กรุณาป้อนนามสกุล",
             'email.required' => "กรุณาป้อน Email",
             'password.required' => "กรุณาป้อนรหัสผ่าน",
             'cpassword.required' => "กรุณาป้อนรหัสผ่าน",
@@ -63,7 +65,8 @@ class AdminController extends Controller
         ],);
 
         $manager = new Manager();
-        $manager->name = $request->name;
+        $manager->firstname = $request->firstname;
+        $manager->lastname = $request->lastname;
         $manager->email = $request->email;
         $manager->password = \Hash::make($request->password);
         $save = $manager->save();

@@ -63,7 +63,7 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::guard('admin')->user()->name }}
+                    {{ Auth::guard('admin')->user()->firstname }} {{ Auth::guard('admin')->user()->lastname }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('admin.logout') }}"
@@ -202,11 +202,18 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-12 py-2">
-                                        <label for="name" class="fg-grey">ชื่อ</label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            value="{{ old('name') }}">
-                                        <span class="text-danger">@error('name'){{ $message }}
+                                    <div class="col-sm-6 py-2">
+                                        <label for="firstname" class="fg-grey">ชื่อ</label>
+                                        <input type="text" class="form-control" id="firstname" name="firstname"
+                                            value="{{ old('firstname') }}">
+                                        <span class="text-danger">@error('firstname'){{ $message }}
+                                            @enderror</span>
+                                    </div>
+                                    <div class="col-sm-6 py-2">
+                                        <label for="lastname" class="fg-grey">นามสกุล</label>
+                                        <input type="text" class="form-control" id="lastname" name="lastname"
+                                            value="{{ old('lastname') }}">
+                                        <span class="text-danger">@error('lastname'){{ $message }}
                                             @enderror</span>
                                     </div>
                                     <div class="col-12 py-2">

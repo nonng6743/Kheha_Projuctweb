@@ -17,12 +17,12 @@ class CreateSellersTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('IDCard');
+            $table->string('idcard');
             $table->string('phone');
             $table->string('gender');
             $table->date('birthdey');
             $table->string('image');
-            $table->string('status')->default('noseller');
+            $table->string('role')->default('noseller');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

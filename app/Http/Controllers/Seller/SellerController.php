@@ -17,48 +17,42 @@ class SellerController extends Controller
 {
     function home(Request $request)
     {
-        $user_id = Auth::guard('seller')->user()->id;
-        $shops = Shop::where('user_id', $user_id)->get();
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
         return view('dashboard.seller.home', compact('counts'));
     }
 
     function homeshop(Request $request)
     {
-        $user_id = Auth::guard('seller')->user()->id;
-        $shops = Shop::where('user_id', $user_id)->get();
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
-        return view('dashboard.seller.homeshop', compact('counts'), compact('shops'));
+        return view('dashboard.seller.homeshop', compact('counts','shops'));
     }
 
     function homecreateproduct(Request $request)
     {
-        $user_id = Auth::guard('seller')->user()->id;
+        $id_seller = Auth::guard('seller')->user()->id;
         $subcategory = Subcategorie::all();
-        $shops = Shop::where('user_id', $user_id)->get();
+        $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
         return view('dashboard.seller.createproduct', compact('counts'), compact('subcategory'));
     }
 
     function homecreateshop(Request $request)
     {
-        $user_id = Auth::guard('seller')->user()->id;
-        $shops = Shop::where('user_id', $user_id)->get();
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
         $categories = Categorie::all();
-        if ($counts > 0) {
-            echo "<script>alert('มีร้านค้าอยู่ในบัญชีเเล้ว')</script>";
-            echo "<script>window.location.href='/seller/home'</script>";
-            return view('dashboard.seller.home');
-        } else {
             return view('dashboard.seller.createshop', compact('counts'), compact('categories'));
-        }
     }
 
     function homeproducts(Request $request)
     {
-        $user_id = Auth::guard('seller')->user()->id;
-        $shops = Shop::where('user_id', $user_id)->get();
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
         foreach ($shops as $shop) {
             $id_shop = $shop->id;
@@ -70,13 +64,13 @@ class SellerController extends Controller
     public function addarea(Request $request)
     {
         $id_seller = Auth::guard('seller')->user()->id;
-        $shops = Shop::where('user_id', $id_seller)->get();
+        $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
         $areas = Area::where('id_seller', 0)->get();
         $countareas = $areas->count();
         $check_reservearea = Reserve_area::where('id_seller', $id_seller)->get();
         $countcheck_reservearea = $check_reservearea->count();
-        
+
         $check_area = Area::where('id_seller', $id_seller)->get();
         $countcheck_area = $check_area->count();
         return view('dashboard.seller.addarea', compact('counts', 'areas','countareas', 'countcheck_reservearea','countcheck_area'));
@@ -129,7 +123,7 @@ class SellerController extends Controller
         $seller->firstname = $request->firstname;
         $seller->lastname = $request->lastname;
         $seller->phone = $request->phone;
-        $seller->IDCard = $request->IDCard;
+        $seller->idcard = $request->IDCard;
         $seller->birthdey = $request->birthdey;
         $seller->gender = $request->gender;
         $seller->image = $img;
@@ -139,9 +133,10 @@ class SellerController extends Controller
 
         if ($save) {
             $image->move($upload_location, $img);
-            return redirect()->back()->with('success', 'You are now registered successfully');
+            echo "<script>alert('เพิ่มข้อมูลสินค้าสำเร็จ')</script>";
+            echo "<script>window.location.href='/seller/homeproducts'</script>";
         } else {
-            return redirect()->back()->with('fail', 'Something went wrong, failed to register');
+            return redirect()->back()->with('fail', 'เกิดข้อผิดพลาดกรุณาสมัครสมาชิกผู้ขายอีกครั้ง');
         }
     }
 
@@ -198,7 +193,7 @@ class SellerController extends Controller
         $upload_location = 'images/shops_seller/';
         $full_path = $upload_location . $img;
 
-        $user_id = Auth::guard('seller')->user()->id;
+        $id_seller = Auth::guard('seller')->user()->id;
 
         $shop = new Shop();
         $shop->nameshop = $request->nameshop;
@@ -206,12 +201,13 @@ class SellerController extends Controller
         $shop->lat = $request->lat;
         $shop->long = $request->long;
         $shop->image = $img;
-        $shop->user_id = $user_id;
+        $shop->id_seller = $id_seller;
         $save = $shop->save();
 
         if ($save) {
             $image->move($upload_location, $img);
-            return redirect()->back()->with('success', 'You are now registered successfully');
+            echo "<script>alert('สร้างร้านค้าสำเร็จ')</script>";
+            echo "<script>window.location.href='/seller/homeproducts'</script>";
         } else {
             return redirect()->back()->with('fail', 'Something went wrong, failed to register');
         }
@@ -242,8 +238,8 @@ class SellerController extends Controller
         $upload_location = 'images/products_seller/';
         $full_path = $upload_location . $img;
 
-        $user_id = Auth::guard('seller')->user()->id;
-        $shops = Shop::where('user_id', $user_id)->get();
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
 
         foreach ($shops as $shop) {
 
@@ -271,8 +267,8 @@ class SellerController extends Controller
     public function editproduct($id)
     {
         $product = Product::find($id);
-        $user_id = Auth::guard('seller')->user()->id;
-        $shops = Shop::where('user_id', $user_id)->get();
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
         return view('dashboard.seller.editproducts', compact('counts'), compact('product'));
     }

@@ -63,7 +63,7 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::guard('admin')->user()->name }}
+                    {{ Auth::guard('admin')->user()->firstname }} {{ Auth::guard('admin')->user()->lastname }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('admin.logout') }}"
@@ -190,7 +190,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ลำดับ</th>
-                                        <th scope="col">ชื่อ</th>
+                                        <th scope="col">ชื่อ - นามสกุล</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">ลบบัญชีผู้จัดการ</th>
                                     </tr>
@@ -200,7 +200,7 @@
                                     @foreach ($manager as $row)
                                         <tr>
                                             <th>{{ $i++ }}</th>
-                                            <td>{{$row->name}}</td>
+                                            <td>{{$row->firstname}} {{$row->lastname}}</td>
                                             <td>{{$row->email}}</td>
                                             <td><a href="{{url('admin/deletemanager/'.$row->id)}}" class="btn btn-danger"  onclick="return confirm('คุณต้องการลบข้อมูลบัญชีผู้จัดการนี้หรือไม่ ?')">ลบบัญชี</a></td>
                                         </tr>

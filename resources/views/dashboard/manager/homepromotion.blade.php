@@ -63,7 +63,7 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::guard('manager')->user()->name }}
+                    {{ Auth::guard('manager')->user()->firstname }} {{ Auth::guard('manager')->user()->lastname }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('manager.logout') }}"

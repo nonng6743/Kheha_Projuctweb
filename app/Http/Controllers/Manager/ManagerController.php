@@ -33,14 +33,15 @@ class ManagerController extends Controller
 
     public function editseller(Request $request)
     {
-        $user_seller = Seller::where('status', 'noseller')->get();
-        return view('dashboard.manager.editseller', compact('user_seller'));
+        $user_seller = Seller::where('role', 'noseller')->get();
+        $countseller = $user_seller->count();
+        return view('dashboard.manager.editseller', compact('user_seller','countseller'));
     }
 
     public function updateseller($id)
     {
         $update = Seller::find($id)->update([
-            'status' => "seller"
+            'role' => "seller"
         ]);
         echo "<script>alert('อัพเดตข้อมูลสำเร็จ')</script>";
         echo "<script>window.location.href='/manager/home'</script>";
@@ -91,12 +92,11 @@ class ManagerController extends Controller
 
     public function addarea($id,$id_area, $id_seller)
     {
-        $user_id = $id_seller;
-        $update = Area::find($id)->update([
+        $update = Area::find($id_area)->update([
             'id_seller' => $id_seller
         ]);
-        $updateshop = Shop::find($user_id)->update([
-            'area_id' => $id_area
+        $updateshop = Shop::find($id_seller)->update([
+            'id_area' => $id_area
         ]);
         $delete = Reserve_area::find($id)->delete();
         echo "<script>alert('อัพเดตข้อมูลสำเร็จ')</script>";

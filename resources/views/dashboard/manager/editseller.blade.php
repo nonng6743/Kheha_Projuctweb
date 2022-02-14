@@ -63,7 +63,7 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::guard('manager')->user()->name }}
+                    {{ Auth::guard('manager')->user()->firstname }} {{ Auth::guard('manager')->user()->lastname }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('manager.logout') }}"
@@ -167,7 +167,7 @@
                 </nav>
                 <h1 class="h2">รายชื่อร้านค้าที่รอการอนุมัติ</h1>
                 <br>
-                @if ($user_seller)
+                @if ($countseller === 0)
                     <div class="row">
                         <div class="col-12  ">
                             <div class="card">
@@ -229,7 +229,7 @@
                                                                 width="70px" height="70px">
                                                         </td>
                                                         <td><a href="{{ url('manager/editseller/' . $row->id) }}"
-                                                                class="btn btn-warning">เเก้ไข</a></td>
+                                                                class="btn btn-warning">อนุมัติ</a></td>
                                                         <td><a href="{{ url('manager/deleteseller/' . $row->id) }}"
                                                                 class="btn btn-danger"
                                                                 onclick="return confirm('คุณต้องการลบข้อมูลสินค้านี้หรือไม่ ?')">ลบ</a>

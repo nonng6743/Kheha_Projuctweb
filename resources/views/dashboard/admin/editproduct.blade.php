@@ -63,7 +63,7 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::guard('admin')->user()->name }}
+                    {{ Auth::guard('admin')->user()->firstname }} {{ Auth::guard('admin')->user()->lastname }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('admin.logout') }}"
@@ -195,7 +195,7 @@
                                         <th scope="col">ชื่อร้านค้า</th>
                                         <th scope="col">ประเภทสินค้า</th>
                                         <th scope="col">ราคา</th>
-                                        <th scope="col">ลบร้านค้า</th>
+                                        <th scope="col">ลบสินค้า</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -211,7 +211,7 @@
                                             <td>{{$row->shop->nameshop}}</td>
                                             <td>{{$row->subcategory->namesubcategory}}</td>
                                             <td>{{$row->price}}</td>
-                                            <td><a href="{{url('admin/deleteproduct/'.$row->id)}}" class="btn btn-danger"  onclick="return confirm('คุณต้องการลบข้อมูลร้านค้านี้หรือไม่ ?')">ลบร้านค้า</a></td>
+                                            <td><a href="{{url('admin/deleteproduct/'.$row->id)}}" class="btn btn-danger"  onclick="return confirm('คุณต้องการลบข้อมูลสินค้านี้หรือไม่ ?')">ลบสินค้า</a></td>
                                         </tr>
 
                                     @endforeach

@@ -41,15 +41,15 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->gender = $request->gender;
         $user->email = $request->email;
-        $user->role= "user";
         $user->image= "";
         $user->password = \Hash::make($request->password);
         $save = $user->save();
 
         if ($save) {
-            return redirect()->back()->with('success', 'You are now registered successfully');
+            echo "<script>alert('สมัครสมาชิกสำเร็จ')</script>";
+            echo "<script>window.location.href='/user/home'</script>";
         } else {
-            return redirect()->back()->with('fail', 'Something went wrong, failed to register');
+            return redirect()->back()->with('fail', 'เกิดข้อผิดพลาดกรุณาสมัครสมาชิกใหม่อีกครั้ง !!');
         }
     }
 
@@ -67,7 +67,7 @@ class UserController extends Controller
         if( Auth::guard('web')->attempt($creds) ){
             return redirect()->route('user.home');
         }else{
-            return redirect()->route('user.login')->with('fail','Incorrect credentials');
+            return redirect()->route('user.login')->with('fail','การเข้าสู้ระบบเกิดข้อผิดพลาด กรุณาเข้าสู่ระบบอีกครั้ง');
         }
     }
 
