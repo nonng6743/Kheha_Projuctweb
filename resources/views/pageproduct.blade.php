@@ -471,7 +471,6 @@
                                 <li class="nav-item">
                                     <a href="{{ route('user.register') }}" class="nav-link">สมัครสมาชิก</a>
                                 </li>
-
                             @endif
                         @endauth
                     @endif
@@ -501,16 +500,22 @@
             <div class="col">
                 <img src="/images/products_seller/{{ $product->image }}" alt="" width="450px" height="450px">
             </div>
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <br>
                 <br>
-                <h3>ชื่อสินค้า : {{ $product->nameproduct }}</h3>
-                <br>
-                <h4>รายละเอียดสินค้า</h4>
-                <h5>{{ $product->detail }}</h5>
-                <br><br>
-                <h4>ราคาสินค้า : {{ $product->price }} บาท</h4>
-                <h6>มีผู้เข้าชมเเล้ว: {{$counts}} </h6>
+                <h3 class="my-3">ชื่อสินค้า : {{ $product->nameproduct }}</h3>
+                <h4 class="my-3">รายละเอียดสินค้า</h4>
+                <p>{{ $product->detail }}</p>
+                <hr>
+                <h5 class="my-3">หมวดหมู่ประเภทสินค้า : <a
+                        href="{{ url('productsubcategory/' . $product->subcategory->namesubcategory) }}">{{ $product->subcategory->namesubcategory }}</a>
+                </h5>
+                <h5 class="my-3">ร้านค้า : <a>{{ $product->shop->nameshop }}</a> </h5>
+                <h5 class="my-3">ช่องทางการติดต่อ : <a>{{ $product->shop->seller->phone }}</a></label></h5>
+                <h5 class="my-3">ผู้ขาย : <a>{{ $product->shop->seller->firstname }} {{ $product->shop->seller->lastname }}</a>  </label></h5>
+                
+                <h4 class="my-3">ราคาสินค้า : <a class="text-success">{{ number_format($product->price, 2) }}</a> บาท</h4>
+                <h5 class="my-3">มีผู้เข้าชมเเล้ว: {{ $counts }} </h5>
             </div>
 </body>
 
