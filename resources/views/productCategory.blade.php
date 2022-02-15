@@ -84,18 +84,18 @@
     </nav> <!-- .navbar -->
 
     <br>
-    <div class="wrapper">
-        <div class="container-md">
-            <section class="content">
-                <div class="card card-solid">
-                    <form class="d-flex" action="" method="post" enctype="multipart/form-data">
-                        <input class="form-control me-2" type="search" placeholder="Search" name="namesearch"
-                            aria-label="Search">
-                        <button class="btn btn-primary" type="submit" name="submit">ค้นหา</button>
-                    </form>
-                </div>
-            </section>
-        </div>
+    <div class="container-md">
+        <section class="content">
+            <div class="card card-solid">
+                <form class="d-flex" action="{{ route('searchname') }}" method="post"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <input class="form-control me-2" type="search" placeholder="Search" name="namesearch"
+                        id="namesearch" aria-label="Search" value="{{ old('namesearch') }}">
+                    <button class="btn btn-primary" type="submit">ค้นหา</button>
+                </form>
+            </div>
+        </section>
     </div>
 
     <div class="page-section">

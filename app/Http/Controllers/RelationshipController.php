@@ -8,6 +8,7 @@ use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Subcategorie;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class RelationshipController extends Controller
 {
@@ -126,4 +127,17 @@ class RelationshipController extends Controller
         $product_type = Product::where('id_subcategory', $id_subcategory)->get();
         return view('productsubcategory',compact('allcategories','product_type','subcategory','namecategory'));
     }
+
+    public function searchproduct($name){
+        $search= Product::where('nameproduct', 'LIKE', "%{$name}%") ->get();
+        $countsearch = $search->count();
+        return view('searchproduct',compact('name','search','countsearch'));
+    }
+
+    public function searchproductname(Request $request){
+        echo "<script>window.location.href='/searchproduct/$request->namesearch'</script>";
+    }
+
+
+
 }

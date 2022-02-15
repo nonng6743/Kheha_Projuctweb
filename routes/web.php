@@ -25,6 +25,9 @@ Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
 Route::get('/productpage/{id}', [RelationshipController::class, 'productname']);
 Route::get('/productCategory/{name}', [RelationshipController::class, 'productCategoryname']);
 Route::get('/productsubcategory/{name}', [RelationshipController::class, 'productsubcategoryname']);
+Route::get('/searchproduct/{name}', [RelationshipController::class, 'searchproduct']);
+Route::post('/searchproduct', [RelationshipController::class, 'searchproductname'])->name('searchname');
+
 
 Auth::routes();
 

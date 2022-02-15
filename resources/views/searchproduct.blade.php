@@ -97,86 +97,56 @@
             </div>
         </section>
     </div>
+    <br>
+    <br>
 
-    <div class="page-section">
-        <div class="container">
+    <div class="container">
+        @if ($countsearch === 0)
             <div class="text-center">
-                <h2 class="title-section">หมวดหมู่สินค้า</h2>
+                <h2 class="title">ผลการค้นหาสินค้า : ไม่พบข้อมูล</h2>
             </div>
-            <div class="row justify-content-center">
-                @foreach ($allcategories as $row)
-                    <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
-                        <div class="text-center">
-                            <div class="img-fluid mb-4">
-                                <img src="/images/categorys/{{ $row->image }}" alt="" width="120px" height="120px">
-                                <h5><a
-                                        href="{{ url('productCategory/' . $row->namecategory) }}">{{ $row->namecategory }}</a>
-                                </h5>
+        @else
+            <div class="text-center">
+                <h2 class="title">ผลการค้นหาสินค้า : {{ $name }}</h2>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    @foreach ($search as $row)
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="text-center">
+                                    <br />
+                                    <img src="/images/products_seller/{{ $row->image }}" width="200px"
+                                        height="200px">
+                                </div>
+                                <div class="text-center">
+                                    <br />
+                                    <h4>{{ $row->nameproduct }}</h4>
+                                    <h6>{{ $row->detail }}</h6>
+                                    <span class="text-success">
+                                        <h5>ราคา {{ $row->price }} บาท</h5>
+                                    </span>
+                                    <h6>มีผู้เข้าชมเเล้ว: {{ $row->view }} </h6>
+                                    <a href="{{ url('productpage/' . $row->id) }}"
+                                        class="btn btn-primary">ดูรายละเอียดเพิ่มเติม</a>
+                                </div>
+                                <br />
                             </div>
                         </div>
-                    </div>
-                @endforeach
-
-            </div>
-
-        </div> <!-- .container -->
-    </div> <!-- .page-section -->
-    <div class="container">
-        <div class="text-center">
-            <h2 class="title-section">หมวดหมู่สินค้า : {{ $namecategory }}</h2>
-        </div>
-
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-3">
-                    @foreach ($subcategory as $row)
-                        <ul class="list-group">
-                            <li class="list-group-item"><a class="stretched-link text-dark"
-                                    href="{{ url('productsubcategory/' . $row->namesubcategory) }}">{{ $row->namesubcategory }}</a>
-                            </li>
-
-                        </ul>
                     @endforeach
-                </div>
-                <div class="col-9">
-                    <div class="container mt-5">
-                        <div class="row">
-                            @foreach ($product_type as $row)
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="text-center">
-                                            <br />
-                                            <img src="/images/products_seller/{{ $row->image }}" width="200px"
-                                                height="200px">
-                                        </div>
-                                        <div class="text-center">
-                                            <br />
-                                            <h4>{{ $row->nameproduct }}</h4>
-                                            <h6>{{ Str::substr($row->detail, 0, 20,'UTF-8')."..."}}</h6>
-                                            <span class="text-success">
-                                                {{ number_format($row->price, 2) }}
-                                                บาท</h5>
-                                            </span>
-                                            <h6>มีผู้เข้าชมเเล้ว: {{ $row->view }} </h6>
 
-                                            <a href="{{ url('productpage/' . $row->id) }}"
-                                                class="btn btn-primary">ดูรายละเอียดเพิ่มเติม</a>
-                                        </div>
-                                        <br />
-                                    </div>
-                            @endforeach
-                        </div>
-                    </div>
                 </div>
-
             </div>
-            <br>
-        </div>
 
-
-
+        @endif
 
     </div>
+
+
+
+
+
+
 
 
 
