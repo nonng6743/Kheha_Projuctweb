@@ -517,7 +517,7 @@
         <div class="container-md">
             <section class="content">
                 <div class="card card-solid">
-                    <form class="d-flex" action="{{ route('searchname') }}" method="post" 
+                    <form class="d-flex" action="{{ route('searchname') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input class="form-control me-2" type="search" placeholder="Search" name="namesearch"
@@ -660,8 +660,12 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="container">
+                        <h1>555</h1>
+                    </div>
 
                 </div>
+
             </div>
         </div>
 

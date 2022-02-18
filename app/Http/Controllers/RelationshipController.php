@@ -15,6 +15,9 @@ class RelationshipController extends Controller
     public function productname($id)
     {
         $product = Product::find($id);
+        $id_subcategory = $product->id_subcategory;
+        $subproduct = Product::where('id_subcategory',$id_subcategory)->get();
+
         if (Auth::guard('web')->check()) {
             $user_id = Auth::guard('web')->user()->id;
             $actionclickusers = new Actionclickuser();
@@ -41,7 +44,7 @@ class RelationshipController extends Controller
                 $inactionusers->save();
 
 
-                return view('pageproduct', compact('product'), compact('counts'));
+                return view('pageproduct', compact('product','counts','subproduct'));
             }
             foreach ($actionusers  as $user) {
                 $iduser_actionuser = $user->id;
@@ -57,7 +60,7 @@ class RelationshipController extends Controller
                 'view' => $counts
             ]);
 
-            return view('pageproduct', compact('product'), compact('counts'));
+            return view('pageproduct', compact('product','counts','subproduct'));
         }
 
         $user_id = 0;
@@ -83,8 +86,9 @@ class RelationshipController extends Controller
             $inactionusers->view = $countcheckactionuser;
             $inactionusers->save();
 
-            return view('pageproduct', compact('product'), compact('counts'));
+            return view('pageproduct', compact('product','counts','subproduct'));
         }
+
         foreach ($actionusers  as $user) {
             $iduser_actionuser = $user->id;
         }
@@ -99,7 +103,7 @@ class RelationshipController extends Controller
             'view' => $counts
         ]);
 
-        return view('pageproduct', compact('product'), compact('counts'));
+        return view('pageproduct', compact('product','counts','subproduct'));
     }
 
     public function productCategoryname($name){

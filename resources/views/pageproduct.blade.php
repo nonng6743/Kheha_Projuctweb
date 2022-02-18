@@ -512,11 +512,49 @@
                 </h5>
                 <h5 class="my-3">ร้านค้า : <a>{{ $product->shop->nameshop }}</a> </h5>
                 <h5 class="my-3">ช่องทางการติดต่อ : <a>{{ $product->shop->seller->phone }}</a></label></h5>
-                <h5 class="my-3">ผู้ขาย : <a>{{ $product->shop->seller->firstname }} {{ $product->shop->seller->lastname }}</a>  </label></h5>
-                
-                <h4 class="my-3">ราคาสินค้า : <a class="text-success">{{ number_format($product->price, 2) }}</a> บาท</h4>
+                <h5 class="my-3">ผู้ขาย : <a>{{ $product->shop->seller->firstname }}
+                        {{ $product->shop->seller->lastname }}</a> </label></h5>
+
+                <h4 class="my-3">ราคาสินค้า : <a
+                        class="text-success">{{ number_format($product->price, 2) }}</a> บาท</h4>
                 <h5 class="my-3">มีผู้เข้าชมเเล้ว: {{ $counts }} </h5>
             </div>
+        </div>
+        <br>
+        <div class="alert alert-dark" role="alert">
+            สินค้าในหมวดหมู่เดียวกัน
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                @foreach ($subproduct as $row)
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="text-center">
+                                <br />
+                                <img src="/images/products_seller/{{ $row->image }}" width="200px"
+                                    height="200px">
+                            </div>
+                            <div class="text-center">
+                                <br />
+                                <h4>{{ $row->nameproduct }}</h4>
+                                <h6>{{ Str::substr($row->detail, 0, 20, 'UTF-8') . '...' }}</h6>
+                                <span class="text-success">
+                                    {{ number_format($row->price, 2) }}
+                                    บาท</h5>
+                                </span>
+                                <h6></h6>
+                                <a href="{{ url('productpage/' . $row->id) }}"
+                                    class="btn btn-primary">ดูรายละเอียดเพิ่มเติม</a>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    </div>
+
 </body>
 
 

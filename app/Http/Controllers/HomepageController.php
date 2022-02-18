@@ -18,7 +18,7 @@ class HomepageController extends Controller
 
         if (Auth::guard('web')->check()) {
             $user_id = Auth::guard('web')->user()->id;
-            $allproducts = Product::all();
+            $allproducts = Product::paginate(5);
             $allpromotions = Promotion::all();
             $allcategories = Categorie::all();
 
@@ -44,7 +44,7 @@ class HomepageController extends Controller
             }
         }
 
-        $allproducts = Product::all();
+        $allproducts = Product::paginate(4);
         $allpromotions = Promotion::all();
         $allcategories = Categorie::all();
 
@@ -57,7 +57,7 @@ class HomepageController extends Controller
             foreach ($product_max as $row) {
                 $id_productmax = $row->id_product;
             }
-            $subcategory_product = Product::where('id', $id_productmax)->get();
+            $subcategory_product = Product::where('id', $id_productmax)->paginate(5);
             foreach ($subcategory_product as $row) {
                 $id_subcategory = $row->id_subcategory;
             }
