@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Login;
 use Illuminate\Http\Request;
 
 use App\Models\Manager;
@@ -25,6 +26,9 @@ class ManagerController extends Controller
 
         $creds = $request->only('email', 'password');
         if (Auth::guard('manager')->attempt($creds)) {
+            $login = new Login();
+            $login->typeuser = 'manager';
+            $login->save();
             return redirect()->route('manager.home');
         } else {
             return redirect()->route('manager.login')->with('fail', 'Email หรือ Password ผิดกรุณาใส่รหัสผ่านใหม่');

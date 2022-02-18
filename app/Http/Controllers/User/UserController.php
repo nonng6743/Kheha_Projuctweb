@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Login;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,9 @@ class UserController extends Controller
 
         $creds = $request->only('email','password');
         if( Auth::guard('web')->attempt($creds) ){
+            $login = new Login();
+            $login->typeuser = 'user';
+            $login->save();
             return redirect()->route('user.home');
         }else{
             return redirect()->route('user.login')->with('fail','การเข้าสู้ระบบเกิดข้อผิดพลาด กรุณาเข้าสู่ระบบอีกครั้ง');

@@ -142,6 +142,11 @@ class RelationshipController extends Controller
         echo "<script>window.location.href='/searchproduct/$request->namesearch'</script>";
     }
 
+    public function productall(Request $request){
+        $allproduct = Product::paginate(12);
+        return view('productall',compact('allproduct') );
+    }
+
 
 
 }

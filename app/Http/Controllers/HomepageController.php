@@ -18,7 +18,7 @@ class HomepageController extends Controller
 
         if (Auth::guard('web')->check()) {
             $user_id = Auth::guard('web')->user()->id;
-            $allproducts = Product::paginate(5);
+            $allproducts = Product::paginate(12);
             $allpromotions = Promotion::all();
             $allcategories = Categorie::all();
 
@@ -44,7 +44,7 @@ class HomepageController extends Controller
             }
         }
 
-        $allproducts = Product::paginate(4);
+        $allproducts = Product::paginate(12);
         $allpromotions = Promotion::all();
         $allcategories = Categorie::all();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Seller;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Categorie;
+use App\Models\Login;
 use App\Models\Product;
 use App\Models\Reserve_area;
 use App\Models\Seller;
@@ -153,6 +154,9 @@ class SellerController extends Controller
         $creds = $request->only('email', 'password');
 
         if (Auth::guard('seller')->attempt($creds)) {
+            $login = new Login();
+            $login->typeuser = 'seller';
+            $login->save();
             return redirect()->route('seller.home');
         } else {
             return redirect()->route('seller.login')->with('fail', 'Incorrect Credentials');

@@ -660,8 +660,13 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="container">
-                        <h1>555</h1>
+                    <div class="container ">
+                        <div class="row">
+                            <div class="text-center">
+                                <br>
+                        <a href="{{ url('productall/') }}"
+                            class="btn btn-primary">ดูสินค้าเพิ่มเติม</a>
+                            </div>
                     </div>
 
                 </div>
