@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Product Name</title>
+    <title>Shop</title>
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/maicons.css">
     <link rel="stylesheet" href="/assets/vendor/animate/animate.css">
@@ -97,65 +97,44 @@
         </section>
     </div>
     <br>
+    <br>
 
     <div class="container">
         <div class="row">
             <div class="col">
-                <img src="/images/products_seller/{{ $product->image }}" alt="" width="450px" height="450px">
+                <img src="/images/shops_seller/{{ $shop->image }}" alt="" width="500px" height="450px">
             </div>
             <div class="col-12 col-sm-6">
-                <br>
-                <br>
-                <h3 class="my-3">ชื่อสินค้า : {{ $product->nameproduct }}</h3>
-                <h4 class="my-3">รายละเอียดสินค้า</h4>
-                <p>{{ $product->detail }}</p>
-                <hr>
-                <h5 class="my-3">หมวดหมู่ประเภทสินค้า : <a
-                        href="{{ url('productsubcategory/' . $product->subcategory->namesubcategory) }}">{{ $product->subcategory->namesubcategory }}</a>
-                </h5>
-                <h5 class="my-3">ร้านค้า : <a href="{{url('shop/' .$product->shop->id)}}">{{ $product->shop->nameshop }}</a> </h5>
-                <h5 class="my-3">ช่องทางการติดต่อ : <a>{{ $product->shop->seller->phone }}</a></label></h5>
-                <h5 class="my-3">ผู้ขาย : <a>{{ $product->shop->seller->firstname }}
-                        {{ $product->shop->seller->lastname }}</a> </label></h5>
+                <h3 class="my-3">ชื่อร้านค้า : {{ $shop->nameshop }}</h3>
+                <h4 class="my-3">ชื่อเจ้าของร้านค้า : {{ $shop->seller->firstname }}
+                    {{ $shop->seller->lastname }}</h4>
+                <h5 class="my-3">เบอร์โทรศัพท์ติดต่อ: {{ $shop->seller->phone }}</h5>
+                <h5 class="my-3">ประเภทของร้านค้า : {{ $shop->category_type }}</h5>
+                @if ($count > 0)
+                    @if ($countfollow > 0)
+                        @php
+                            $value = 0;
+                        @endphp
+                        <a type="button" class="btn btn-danger"
+                            href="{{ url('followshop/shopid=' . $shop->id . '/' . $value) }}">ติดตามร้านค้าเเล้ว</a>
+                    @else
+                         @php
+                            $value = 1;
+                        @endphp
+                        <a type="button" class="btn btn-danger"
+                            href="{{ url('followshop/shopid=' . $shop->id . '/' . $value) }}">ติดตามร้านค้า</a>
+                    @endif
 
-                <h4 class="my-3">ราคาสินค้า : <a
-                        class="text-success">{{ number_format($product->price, 2) }}</a> บาท</h4>
-                <h5 class="my-3">มีผู้เข้าชมเเล้ว: {{ $counts }} </h5>
+
+
+
+                @endif
+
             </div>
         </div>
         <br>
-        <div class="alert alert-dark" role="alert">
-            สินค้าในหมวดหมู่เดียวกัน
-        </div>
-        <div class="container mt-5">
-            <div class="row">
-                @foreach ($subproduct as $row)
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="text-center">
-                                <br />
-                                <img src="/images/products_seller/{{ $row->image }}" width="200px"
-                                    height="200px">
-                            </div>
-                            <div class="text-center">
-                                <br />
-                                <h4>{{ $row->nameproduct }}</h4>
-                                <h6>{{ Str::substr($row->detail, 0, 20, 'UTF-8') . '...' }}</h6>
-                                <span class="text-success">
-                                    {{ number_format($row->price, 2) }}
-                                    บาท</h5>
-                                </span>
-                                <h6></h6>
-                                <a href="{{ url('productpage/' . $row->id) }}"
-                                    class="btn btn-primary">ดูรายละเอียดเพิ่มเติม</a>
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-                @endforeach
 
-            </div>
-        </div>
+
     </div>
 
 </body>
