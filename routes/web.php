@@ -30,6 +30,7 @@ Route::get('/productall', [RelationshipController::class, 'productall']);
 Route::get('/shop/{id}',[RelationshipController::class,'shop']);
 Route::get('/followshop/shopid={id}/{value}',[RelationshipController::class,'followshop']);
 Route::post('/searchproduct', [RelationshipController::class, 'searchproductname'])->name('searchname');
+Route::post('/message', [RelationshipController::class, 'message'])->name('message');
 
 
 

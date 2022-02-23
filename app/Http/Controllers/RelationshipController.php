@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Actionclickuser;
 use App\Models\Actionuser;
 use App\Models\Categorie;
+use App\Models\Chat;
 use App\Models\Follow;
 use App\Models\Product;
 use App\Models\Subcategorie;
@@ -163,10 +164,16 @@ class RelationshipController extends Controller
             $count = $user->count();
             $follow = Follow::where('id_user', $user_id)->where('id_shop', $id)->get();
             $countfollow = $follow->count();
-            return view('shop', compact('shop', 'id', 'count', 'countfollow'));
+
+            $message = Chat::where('id_user', $user_id)->where('id_shop', $id)->get();
+
+            $products = Product::where('id_shop', $id)->paginate(12);
+
+            return view('shop', compact('shop', 'id', 'count', 'countfollow', 'message', 'products'));
         }
         $count = 0;
-        return view('shop', compact('shop', 'id', 'count'));
+        $products = Product::where('id_shop', $id)->paginate(12);
+        return view('shop', compact('shop', 'id', 'count', 'products'));
     }
     public function followshop($id, $value)
     {
@@ -187,6 +194,17 @@ class RelationshipController extends Controller
             $delete = Follow::find($id_follow)->delete();
             echo "<script>window.location.href='/shop/$id'</script>";
         }
+    }
 
+    public function message(Request $request)
+    {
+        $user_id = Auth::guard('web')->user()->id;
+        $message = new Chat();
+        $message->message = $request->message;
+        $message->id_shop = $request->id;
+        $message->id_user = $user_id;
+        $message->status = 'user';
+        $message->save();
+        echo "<script>window.location.href='/shop/$request->id'</script>";
     }
 }

@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="/assets/vendor/owl-carousel/css/owl.carousel.css">
     <link rel="stylesheet" href="/assets/vendor/fancybox/css/jquery.fancybox.css">
     <link rel="stylesheet" href="/assets/css/theme.css">
+    <link rel="stylesheet" href="/css/stylechat.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-
 
 </head>
 
@@ -118,24 +118,136 @@
                         <a type="button" class="btn btn-danger"
                             href="{{ url('followshop/shopid=' . $shop->id . '/' . $value) }}">ติดตามร้านค้าเเล้ว</a>
                     @else
-                         @php
+                        @php
                             $value = 1;
                         @endphp
                         <a type="button" class="btn btn-danger"
                             href="{{ url('followshop/shopid=' . $shop->id . '/' . $value) }}">ติดตามร้านค้า</a>
                     @endif
+                    <br>
+                    <br>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                    ติดต่อร้านค้า
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <main class="content">
+                                        <div class="container p-0">
+                                            <h1 class="h3 mb-3">ข้อความ</h1>
+                                            <div class="card">
+                                                <div class="row g-0">
+                                                    <div class="position-relative">
+                                                        <div class="chat-messages ">
+                                                            <br>
+                                                            @foreach ($message as $row)
+                                                                @if ($row->status === 'user')
+                                                                    <div class="chat-message-right pb-4">
+                                                                        <div
+                                                                            class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                                            <div class="font-weight-bold mb-1">
+                                                                                คุณ</div>
+                                                                            {{ $row->message }}
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                                @if ($row->status === 'seller')
+                                                                    <div class="chat-message-left pb-4">
+                                                                        <div
+                                                                            class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                                            <div class="font-weight-bold mb-1">
+                                                                                {{ $row->shop->nameshop }}
+                                                                            </div>
+                                                                            {{ $row->message }}
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                                <div class="flex-grow-0 py-3 px-4 border-top">
+                                                    <form class="d-flex"
+                                                        action="{{ route('message', ['id' => $id]) }}" method="post"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="ส่งข้อความหาร้านค้า" name="message"
+                                                                id="message" value="{{ old('message') }} ">
+                                                            <button type="submit" name="sand"
+                                                                class="btn btn-warning">ส่ง</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
 
-
-
-                @endif
-
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            </main>
+                        </div>
+                    </div>
             </div>
         </div>
-        <br>
 
+        @endif
 
     </div>
+    <h1></h1>
+    <div class="container">
+        <div class="alert alert-primary" role="alert">
+            สินค้าจากร้านค้า
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                @foreach ($products as $row)
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="text-center">
+                                <br />
+                                <img src="/images/products_seller/{{ $row->image }}" width="200px" height="200px">
+                            </div>
+                            <div class="text-center">
+                                <br />
+                                <h4>{{ $row->nameproduct }}</h4>
+                                <h6>{{ Str::substr($row->detail, 0, 20, 'UTF-8') . '...' }}</h6>
+                                <span class="text-success">
+                                    {{ number_format($row->price, 2) }}
+                                    บาท</h5>
+                                </span>
+                                <h6>มีผู้เข้าชมเเล้ว: {{ $row->view }} </h6>
+                                <a href="{{ url('productpage/' . $row->id) }}"
+                                    class="btn btn-primary">ดูรายละเอียดเพิ่มเติม</a>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                @endforeach
+                <div class="container ">
+                    <div class="row">
+                        <div class="text-center">
+                            <br>
+                            {{ $products->links() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
 
 </body>
 
