@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Seller;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Categorie;
+use App\Models\Chat;
 use App\Models\Login;
 use App\Models\Product;
 use App\Models\Reserve_area;
@@ -29,7 +30,7 @@ class SellerController extends Controller
         $id_seller = Auth::guard('seller')->user()->id;
         $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
-        return view('dashboard.seller.homeshop', compact('counts','shops'));
+        return view('dashboard.seller.homeshop', compact('counts', 'shops'));
     }
 
     function homecreateproduct(Request $request)
@@ -47,7 +48,7 @@ class SellerController extends Controller
         $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
         $categories = Categorie::all();
-            return view('dashboard.seller.createshop', compact('counts'), compact('categories'));
+        return view('dashboard.seller.createshop', compact('counts'), compact('categories'));
     }
 
     function homeproducts(Request $request)
@@ -74,7 +75,33 @@ class SellerController extends Controller
 
         $check_area = Area::where('id_seller', $id_seller)->get();
         $countcheck_area = $check_area->count();
-        return view('dashboard.seller.addarea', compact('counts', 'areas','countareas', 'countcheck_reservearea','countcheck_area'));
+        return view('dashboard.seller.addarea', compact('counts', 'areas', 'countareas', 'countcheck_reservearea', 'countcheck_area'));
+    }
+
+    public function usermessage(Request $request)
+    {
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
+        foreach ($shops as $row) {
+            $id_shop = $row->id;
+        }
+        $counts = $shops->count();
+        $message = Chat::select('id_user')->distinct()->where('id_shop', $id_shop)->get();
+
+        return view('dashboard.seller.homemessage', compact('counts', 'message'));
+    }
+    public function messageuser($id)
+    {
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
+        foreach ($shops as $row) {
+            $id_shop = $row->id;
+        }
+        $counts = $shops->count();
+        $idmessage = Chat::select('id_user')->distinct()->where('id_shop', $id_shop)->get();
+        $message = Chat::where('id_user', $id)->where('id_shop', $id_shop)->get();
+
+        return view('dashboard.seller.messageuser', compact('counts', 'idmessage', 'message'));
     }
 
     public function create(Request $request)
@@ -337,7 +364,8 @@ class SellerController extends Controller
         echo "<script>window.location.href='/seller/homeproducts'</script>";
     }
 
-    public function area_add($id){
+    public function area_add($id)
+    {
         $id_seller = Auth::guard('seller')->user()->id;
         $reserve_areas = new Reserve_area();
         $reserve_areas->id_seller = $id_seller;
@@ -350,5 +378,23 @@ class SellerController extends Controller
         } else {
             return redirect()->back()->with('fail', 'ขออภัยไม่สามารถเพิ่มสินค้าได้');
         }
+    }
+
+    public function messagechatuser(Request $request)
+    {
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
+        foreach ($shops as $row) {
+            $id_shop = $row->id;
+        }
+        $message = new Chat();
+        $message->id_user = $request->id;
+        $message->id_shop = $id_shop;
+        $message->message = $request->message;
+        $message->status = 'seller';
+        $message->save();
+        echo "<script>window.location.href='/seller/messageuser/userId=$request->id'</script>";
+
+
     }
 }

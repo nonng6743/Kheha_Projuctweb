@@ -98,8 +98,12 @@ Route::prefix('seller')->name('seller.')->group(function () {
         Route::get('/deleteproducts/{id}',[SellerController::class,'deleteproducts']);
         Route::get('/addarea', [SellerController::class, 'addarea'])->name('addarea');
         Route::get('/area_add/{id}', [SellerController::class, 'area_add'])->name('area_add');
+        Route::get('/usermessage', [SellerController::class, 'usermessage'])->name('usermessage');
+        Route::get('/messageuser/userId={id}', [SellerController::class, 'messageuser']);
 
 
+
+        Route::post('/messagechatuser', [SellerController::class, 'messagechatuser'])->name('messagechatuser');
         Route::post('/createshop', [SellerController::class, 'createshop'])->name('createshop');
         Route::post('/createproduct', [SellerController::class, 'createproduct'])->name('createproduct');
         Route::post('/logout', [SellerController::class, 'logout'])->name('logout');
