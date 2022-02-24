@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Categorie;
 use App\Models\Chat;
+use App\Models\Chatmanager;
 use App\Models\Login;
 use App\Models\Product;
 use App\Models\Reserve_area;
@@ -102,6 +103,36 @@ class SellerController extends Controller
         $message = Chat::where('id_user', $id)->where('id_shop', $id_shop)->get();
 
         return view('dashboard.seller.messageuser', compact('counts', 'idmessage', 'message'));
+    }
+    public function messagemanager(Request $request)
+    {
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
+        foreach ($shops as $row) {
+            $id_shop = $row->id;
+        }
+        $counts = $shops->count();
+        $message = Chatmanager::where('id_seller', $id_seller)->get();
+
+        return view('dashboard.seller.chatmanager', compact('counts', 'message'));
+    }
+    public function messagechartmanager(Request $request)
+    {
+        if (!$request->message) {
+            echo "<script>alert('กรุณาระบุข้อความ')</script>";
+            echo "<script>window.location.href='/seller/messagemanager'</script>";
+        } else {
+            $id_seller = Auth::guard('seller')->user()->id;
+            $message = new Chatmanager();
+            $message->message = $request->message;
+            $message->id_seller = $id_seller;
+            $message->id_manager = 1;
+            $message->status = 'seller';
+            $message->save();
+            echo "<script>window.location.href='/seller/messagemanager'</script>";
+
+
+        }
     }
 
     public function create(Request $request)
@@ -387,14 +418,17 @@ class SellerController extends Controller
         foreach ($shops as $row) {
             $id_shop = $row->id;
         }
-        $message = new Chat();
-        $message->id_user = $request->id;
-        $message->id_shop = $id_shop;
-        $message->message = $request->message;
-        $message->status = 'seller';
-        $message->save();
-        echo "<script>window.location.href='/seller/messageuser/userId=$request->id'</script>";
-
-
+        if (!$request->message) {
+            echo "<script>alert('กรุณาระบุข้อความ')</script>";
+            echo "<script>window.location.href='/seller/messageuser/userId=$request->id'</script>";
+        } else {
+            $message = new Chat();
+            $message->id_user = $request->id;
+            $message->id_shop = $id_shop;
+            $message->message = $request->message;
+            $message->status = 'seller';
+            $message->save();
+            echo "<script>window.location.href='/seller/messageuser/userId=$request->id'</script>";
+        }
     }
 }

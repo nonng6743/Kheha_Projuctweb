@@ -100,9 +100,10 @@ Route::prefix('seller')->name('seller.')->group(function () {
         Route::get('/area_add/{id}', [SellerController::class, 'area_add'])->name('area_add');
         Route::get('/usermessage', [SellerController::class, 'usermessage'])->name('usermessage');
         Route::get('/messageuser/userId={id}', [SellerController::class, 'messageuser']);
+        Route::get('/messagemanager', [SellerController::class, 'messagemanager'])->name('messagemanager');
 
 
-
+        Route::post('/messagemanager', [SellerController::class, 'messagechartmanager'])->name('messagechartmanager');
         Route::post('/messagechatuser', [SellerController::class, 'messagechatuser'])->name('messagechatuser');
         Route::post('/createshop', [SellerController::class, 'createshop'])->name('createshop');
         Route::post('/createproduct', [SellerController::class, 'createproduct'])->name('createproduct');
