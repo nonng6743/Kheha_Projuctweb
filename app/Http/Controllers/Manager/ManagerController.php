@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Chatmanager;
 use App\Models\Login;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,7 @@ class ManagerController extends Controller
     {
         $user_seller = Seller::where('role', 'noseller')->get();
         $countseller = $user_seller->count();
-        return view('dashboard.manager.editseller', compact('user_seller','countseller'));
+        return view('dashboard.manager.editseller', compact('user_seller', 'countseller'));
     }
 
     public function updateseller($id)
@@ -91,10 +92,10 @@ class ManagerController extends Controller
     {
         $areas = Reserve_area::all();
         $countareas = $areas->count();
-        return view('dashboard.manager.approveareas', compact('areas','countareas'));
+        return view('dashboard.manager.approveareas', compact('areas', 'countareas'));
     }
 
-    public function addarea($id,$id_area, $id_seller)
+    public function addarea($id, $id_area, $id_seller)
     {
         $update = Area::find($id_area)->update([
             'id_seller' => $id_seller
@@ -105,6 +106,34 @@ class ManagerController extends Controller
         $delete = Reserve_area::find($id)->delete();
         echo "<script>alert('อัพเดตข้อมูลสำเร็จ')</script>";
         echo "<script>window.location.href='/manager/home'</script>";
+    }
+    public function messageseller(Request $request)
+    {
+        $idmessage = Chatmanager::select('id_seller')->distinct()->get();
+        return view('dashboard.manager.messageseller', compact('idmessage'));
+    }
+    public function messagesellers($id)
+    {
+        $idmessage = Chatmanager::select('id_seller')->distinct()->get();
+        $message = Chatmanager::where('id_seller', $id)->get();
+        return view('dashboard.manager.chatseller',compact('idmessage','message'));
+    }
+
+    public function messagechartseller(Request $request){
+        if (!$request->message) {
+            echo "<script>alert('กรุณาระบุข้อความ')</script>";
+            echo "<script>window.location.href='/manager/messageseller/sellerId=$request->id'</script>";
+        } else {
+            $message = new Chatmanager();
+            $message->message = $request->message;
+            $message->id_seller = $request->id;
+            $message->id_manager = 1;
+            $message->status = 'manager';
+            $message->save();
+            echo "<script>window.location.href='/manager/messageseller/sellerId=$request->id'</script>";
+
+
+        }
     }
 
     function createpromotion(Request $request)

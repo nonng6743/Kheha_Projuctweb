@@ -130,7 +130,10 @@ Route::prefix('manager')->name('manager.')->group(function () {
         Route::get('/createareas', [ManagerController::class, 'createareas'])->name('createareas');
         Route::get('/approveareas', [ManagerController::class, 'approveareas'])->name('approveareas');
         Route::get('/addarea/{id}/{id_area}/{id_seller}',[ManagerController::class,'addarea']);
+        Route::get('/messageseller', [ManagerController::class, 'messageseller'])->name('messageseller');
+        Route::get('/messageseller/sellerId={id}', [ManagerController::class, 'messagesellers']);
 
+        Route::post('/messageseller', [ManagerController::class, 'messagechartseller'])->name('messagechartseller');
         Route::post('/createarea', [ManagerController::class, 'createarea'])->name('createarea');
         Route::post('/homecreatepromotion', [ManagerController::class, 'createpromotion'])->name('createpromotion');
         Route::post('/logout', [ManagerController::class, 'logout'])->name('logout');

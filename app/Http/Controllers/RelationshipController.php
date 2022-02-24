@@ -198,6 +198,10 @@ class RelationshipController extends Controller
 
     public function message(Request $request)
     {
+        if (!$request->message) {
+            echo "<script>alert('กรุณาระบุข้อความ')</script>";
+            echo "<script>window.location.href='/shop/$request->id'</script>";
+        } else {
         $user_id = Auth::guard('web')->user()->id;
         $message = new Chat();
         $message->message = $request->message;
@@ -206,5 +210,6 @@ class RelationshipController extends Controller
         $message->status = 'user';
         $message->save();
         echo "<script>window.location.href='/shop/$request->id'</script>";
+        }
     }
 }

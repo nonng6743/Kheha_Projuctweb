@@ -15,4 +15,9 @@ class Chatmanager extends Model
         'id_seller',
         'status'
     ];
+
+    public function seller(){
+        return $this->hasOne(Seller::class,'id','id_seller');
+    }
+
 }
