@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Product All</title>
+    <title>Report</title>
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/maicons.css">
     <link rel="stylesheet" href="/assets/vendor/animate/animate.css">
@@ -47,7 +47,7 @@
                         <a href="{{ route('seller.login') }}" class="nav-link">สำหรับร้านค้า</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('reportpage')}}" class="nav-link ">เเจ้งปัญหา</a>
+                        <a href="{{ route('reportpage') }}" class="nav-link ">เเจ้งปัญหา</a>
                     </li>
 
                     @if (Route::has('login'))
@@ -83,74 +83,48 @@
             </div> <!-- .container -->
     </nav> <!-- .navbar -->
 
-    <br>
-    <div class="container-md">
-        <section class="content">
-            <div class="card card-solid">
-                <form class="d-flex" action="{{ route('searchname') }}" method="post"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <input class="form-control me-2" type="search" placeholder="Search" name="namesearch"
-                        id="namesearch" aria-label="Search" value="{{ old('namesearch') }}">
-                    <button class="btn btn-primary" type="submit">ค้นหา</button>
-                </form>
+    <div class="page-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="title-section">เเจ้งปัญหา</h2>
             </div>
-        </section>
-    </div>
-    <br>
-    <br>
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-8">
+                    <form action="{{ route('reportpost') }}" class="form-contact" method="post"
+                        autocomplete="off">
+                        @if (Session::get('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
+                        @if (Session::get('fail'))
+                            <div class="alert alert-danger">
+                                {{ Session::get('fail') }}
+                            </div>
+                        @endif
 
-    <div class="container">
-        <div class="text-center">
-            <h2 class="title">สินค้าทั้งหมด</h2>
-        </div>
-        <div class="container mt-5">
-            <div class="row">
-                @foreach ($allproduct as $row)
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="text-center">
-                                <br />
-                                <img src="/images/products_seller/{{ $row->image }}" width="200px" height="200px">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12 py-2">
+                                <label for="report" class="fg-grey">รายละเอียดการเเจ้งปัญหา</label>
+                                <textarea type="text" class="form-control" id="report" name="report"
+                                    rows="8" value="{{ old('report') }}"></textarea>
+                                <span class="text-danger">@error('report'){{ $message }}
+                                    @enderror</span>
                             </div>
-                            <div class="text-center">
-                                <br />
-                                <h4>{{ $row->nameproduct }}</h4>
-                                <h6>{{ $row->detail }}</h6>
-                                <span class="text-success">
-                                    <h5>ราคา {{ $row->price }} บาท</h5>
-                                </span>
-                                <h6>มีผู้เข้าชมเเล้ว: {{ $row->view }} </h6>
-                                <a href="{{ url('productpage/' . $row->id) }}"
-                                    class="btn btn-primary">ดูรายละเอียดเพิ่มเติม</a>
+
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-primary px-5">เเจ้งปํญหา</button>
                             </div>
-                            <br />
+
                         </div>
-                    </div>
-                @endforeach
-                <div class="container ">
-                    <div class="row">
-                        <div class="text-center">
-                            <br>
-                            {{$allproduct->links()}}
-                        </div>
+                    </form>
+                    <br>
                 </div>
-
             </div>
+
         </div>
-
-
     </div>
-
-
-
-
-
-
-
-
-
-
 
 
 

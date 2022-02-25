@@ -7,9 +7,12 @@ use App\Models\Actionuser;
 use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Promotion;
+use App\Models\Report;
 use App\Models\Subcategorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use function Ramsey\Uuid\v1;
 
 class HomepageController extends Controller
 {
@@ -67,5 +70,25 @@ class HomepageController extends Controller
         } else {
             return view('welcome', compact('allproducts', 'allpromotions', 'allcategories', 'countcheckactionuser'));
         }
+    }
+
+    public function reportpage(Request $request)
+    {
+        return view('report');
+    }
+    public function reportpost(Request $request)
+    {
+        $request->validate([
+            'report' => 'required'
+
+        ], [
+            'report.required' => 'กรุณาป้อนข้อความ'
+        ]);
+        $report = new Report();
+        $report->id_user = 0;
+        $report->message = $request->report;
+        $report->save();
+        echo "<script>alert('เเจ้งปัญหาสำเร็จ')</script>";
+        echo "<script>window.location.href='/'</script>";
     }
 }

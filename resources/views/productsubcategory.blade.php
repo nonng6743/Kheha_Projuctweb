@@ -47,7 +47,7 @@
                         <a href="{{ route('seller.login') }}" class="nav-link">สำหรับร้านค้า</a>
                     </li>
                     <li class="nav-item">
-                        <a href="reportchat.php" class="nav-link ">เเจ้งปัญหา</a>
+                        <a href="{{ route('reportpage')}}" class="nav-link ">เเจ้งปัญหา</a>
                     </li>
 
                     @if (Route::has('login'))
