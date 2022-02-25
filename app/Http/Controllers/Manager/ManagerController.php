@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Manager;
 use App\Models\Promotion;
+use App\Models\Report;
 use App\Models\Reserve_area;
 use App\Models\Seller;
 use App\Models\Shop;
@@ -117,6 +118,10 @@ class ManagerController extends Controller
         $idmessage = Chatmanager::select('id_seller')->distinct()->get();
         $message = Chatmanager::where('id_seller', $id)->get();
         return view('dashboard.manager.chatseller',compact('idmessage','message'));
+    }
+    public function reportpage(Request $request){
+        $report = Report::all();
+        return view('dashboard.manager.reportpage',compact('report'));
     }
 
     public function messagechartseller(Request $request){

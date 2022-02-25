@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager Homepromotion</title>
+    <title>Manager Homereport</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
@@ -186,33 +186,32 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('manager.home') }}">หน้าเเรก</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">จัดการโปรโมชั่น</li>
+                        <li class="breadcrumb-item active" aria-current="page">เเจ้งปัญหา</li>
                     </ol>
                 </nav>
-                <h1 class="h2">จัดการโปรโมชั่น</h1>
+                <h1 class="h2">เเจ้งปัญหา</h1>
                 <br>
                 <div class="col-12 col-xl mb-4 mb-lg-0">
                     <div class="card">
-                        <h5 class="card-header">รายละเอียดการจัดการโปรโมชั่น</h5>
+                        <h5 class="card-header">รายละเอียดการเเจ้งปัญหา</h5>
                         <div class="card-body ">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">ลำดับ</th>
-                                        <th scope="col">รูปโปรโมชั่น</th>
-                                        <th scope="col">ลบโปรโมชั่น</th>
+                                        <th scope="col">รายละเอียดการเเจ้งปัญหา</th>
+                                        <th scope="col">วัน</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php($i = 1)
-                                    @foreach ($promotion as $row)
+                                    @foreach ($report as $row)
                                         <tr>
                                             <th>{{ $i++ }}</th>
                                             <td>
-                                                <img src="/images/promotionweb/{{ $row->image }}" alt=""
-                                                    width="200px" height="100px">
+                                                {{$row->message}}
                                             </td>
-                                            <td><a href="{{url('manager/deletepromotion/'.$row->id)}}" class="btn btn-danger"  onclick="return confirm('คุณต้องการลบข้อมูลโปรโมชั่นนี้หรือไม่ ?')">ลบโปรโมชั่น</a></td>
+                                            <td>{{$row->created_at}}</td>
                                         </tr>
 
                                     @endforeach
