@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Addarea</title>
+    <title>Seller HomePromotion</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-    <link rel="stylesheet" href="/css/stylechat.css">
     <style>
         .sidebar {
             position: fixed;
@@ -139,9 +138,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('seller.createpromotion') }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="feather feather-edit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                         </svg>
@@ -164,10 +163,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('seller.homepromotion')}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="feather feather-shopping-cart">
+                                    <a class="nav-link" href="{{ route('seller.homepromotion') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-shopping-cart">
                                             <circle cx="9" cy="21" r="1"></circle>
                                             <circle cx="20" cy="21" r="1"></circle>
                                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
@@ -225,72 +225,58 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('seller.home') }}">หน้าเเรก</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">รายชื่อผู้ติดต่อคุณ</li>
+                            <li class="breadcrumb-item active" aria-current="page">โปรโมชั่นสินค้าทั้งหมดของคุณ</li>
                         </ol>
-
-                        <div class="col-12 col-xl mb-4 mb-lg-0">
-                            <div class="card">
-                                <h5 class="card-header">ข้อความการติดต่อจากผู้จัดการ
-                                </h5>
-                                <div class="card-body ">
-                                    <div class="container p-0">
-                                        <div class="card">
-                                            <div class="row g-0">
-                                                <div class="position-relative">
-                                                    <div class="chat-messages ">
-                                                        <br>
-                                                        @foreach ($message as $row)
-                                                            @if ($row->status === 'seller')
-                                                                <div class="chat-message-right pb-4">
-                                                                    <div
-                                                                        class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                                                        <div class="font-weight-bold mb-1">
-                                                                            คุณ</div>
-                                                                        {{ $row->message }}
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                            @if ($row->status === 'manager')
-                                                                <div class="chat-message-left pb-4">
-                                                                    <div
-                                                                        class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-                                                                        <div class="font-weight-bold mb-1">
-                                                                            ผู้จัดการ
-                                                                        </div>
-                                                                        {{ $row->message }}
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex-grow-0 py-3 px-4 border-top">
-                                                <form class="d-flex"
-                                                    action="{{ route('seller.messagechartmanager') }}" method="post"
-                                                    enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="ส่งข้อความหาร้านค้า" name="message"
-                                                            id="message" value="{{ old('message') }} ">
-                                                        <button type="submit" name="sand"
-                                                            class="btn btn-warning">ส่ง</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </nav>
+                    <h1 class="h2">โปรโมชั่นสินค้าทั้งหมดของคุณ</h1>
+                    <br>
+                    <div class="col-12 col-xl mb-4 mb-lg-0">
+                        <div class="card">
+                            <h5 class="card-header">ข้อมูลรายละเอียดโปรโมชั่นสินค้าทั้งหมดของคุณ</h5>
+                            @if ($countpromotion < 1)
+                                <div class="card-body ">
+                                    <h3>คุณยังไม่มีโปรโมชั่นของคุณ</h3>
+                                </div>
+                            @else
+                                <div class="card-body ">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ลำดับ</th>
+                                                <th scope="col">รูปโปรโมชั่น</th>
+                                                <th scope="col">รายละเอียดโปรโมชั่นสินค้า</th>
+                                                <th scope="col">ลบโปรโมชั่นสินค้า</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php($i = 1)
+                                            @foreach ($promotions as $row)
+                                                <tr>
+                                                    <th>{{ $i++ }}</th>
+                                                    <td>
+                                                        <img src="/images/promotion_seller/{{ $row->image }}" alt=""
+                                                            width="200px" height="100px">
+                                                    </td>
+                                                    <td>{{ $row->detailpromotion }}</td>
+                                                    <td><a href="{{ url('seller/deletepromotion/' . $row->id) }}"
+                                                            class="btn btn-danger"
+                                                            onclick="return confirm('คุณต้องการลบข้อมูลโปรโมชั่นสินค้านี้หรือไม่ ?')">ลบโปรโมชั่นสินค้า</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                </main>
+                            @endif
+
+                        </div>
+                    </div>
+
             </div>
+
+            </main>
+        </div>
         </div>
     @endif
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crate Shop</title>
+    <title>Seller CreatePromotion</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
@@ -165,6 +165,19 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('seller.homepromotion')}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-shopping-cart">
+                                        <circle cx="9" cy="21" r="1"></circle>
+                                        <circle cx="20" cy="21" r="1"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                    <span class="ml-2">โปรโมชั่นสินค้าของคุณ</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('seller.addarea')}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -209,104 +222,62 @@
                 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('seller.home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">สร้างร้านค้าของคุณ</li>
+                            <li class="breadcrumb-item"><a href="{{ route('seller.home') }}">หน้าเเรก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">สร้างโปรโมชั่นสินค้า</li>
                         </ol>
                     </nav>
-                    <h1 class="h2">สร้างร้านค้าของคุณ</h1>
+                    <h1 class="h2">สร้างโปรโมชั่นสินค้า</h1>
                     <br>
                     <div class="col-12 col-xl mb-4 mb-lg-0">
                         <div class="card">
-                            <h5 class="card-header">รายละเอียดการสร้างร้านค้าของคุณ</h5>
-                            <div class="card-body">
-                                <div class="row">
-                                    <form action="{{ route('seller.createshop') }}" class="form-contact"
-                                        method="post" autocomplete="off" enctype="multipart/form-data">
-                                        @if (Session::get('success'))
-                                            <div class="alert alert-success">
-                                                {{ Session::get('success') }}
-                                            </div>
-                                        @endif
-                                        @if (Session::get('fail'))
-                                            <div class="alert alert-danger">
-                                                {{ Session::get('fail') }}
-                                            </div>
-                                        @endif
+                            <h5 class="card-header">รายละเอียดการสร้างสร้างโปรโมชั่นสินค้าของคุณ</h5>
+                            <form action="{{ route('seller.createpromotiondata') }}" class="form-contact" method="post"
+                                autocomplete="off" enctype="multipart/form-data">
+                                @if (Session::get('success'))
+                                    <br>
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+                                @if (Session::get('fail'))
+                                    <div class="alert alert-danger">
+                                        {{ Session::get('fail') }}
+                                    </div>
+                                @endif
 
-                                        @csrf
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-12 py-2">
-                                                    <label for="nameshop"
-                                                        class="fg-grey">ชื่อร้านค้าของท่าน</label>
-                                                    <input type="text" class="form-control" id="nameshop"
-                                                        name="nameshop" value="{{ old('nameshop') }}">
-                                                    <span class="text-danger">@error('nameshop'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 py-2">
-                                                    <label for="category_type"
-                                                        class="fg-grey">ประเภทร้านค้า</label>
-                                                    <select class="form-control" type="category_type"
-                                                        id="category_type" name="category_type"
-                                                        value="{{ old('category_type') }}">
-                                                        @foreach ($categories as $row)
-                                                            <option value="{{ $row->namecategory }}">
-                                                                {{ $row->namecategory }}</option>
-                                                        @endforeach
-                                                    </select>
+                                @csrf
+                                <div class="card-body">
+                                    <div class="row">
 
-                                                    <span
-                                                        class="text-danger">@error('category_type'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 py-2">
-                                                    <label class="fg-grey">ตำเเหน่งร้านค้าของท่าน</label>
-                                                </div>
-                                                <div class="col-sm-6 py-2">
-                                                    <label for="lat" class="fg-grey">Latitude</label>
-                                                    <input type="text" class="form-control" id="lat" name="lat"
-                                                        value="{{ old('lat') }}">
-                                                    <span class="text-danger">@error('lat'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-sm-6 py-2">
-                                                    <label for="long" class="fg-grey">Longitude</label>
-                                                    <input type="text" class="form-control" id="long" name="long"
-                                                        value="{{ old('long') }}">
-                                                    <span class="text-danger">@error('long'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 py-2">
-                                                    <label for="image"
-                                                        class="fg-grey">อัพโหลดรูปภาพของคุณ</label>
-                                                    <input type="file" class="form-control" id="image" name="image"
-                                                        value="{{ old('image') }}">
-                                                    <span class="text-danger">@error('image'){{ $message }}
-                                                        @enderror</span>
-                                                </div>
-                                                <div class="col-12 mt-3">
-                                                    <button type="submit"
-                                                        class="btn btn-primary px-5">สร้างร้านค้า</button>
-                                                </div>
-
-
-
-                                            </div>
+                                        <div class="col-12 py-2">
+                                            <label for="detailpromotion" class="fg-grey">รายละเอียดโปรโมชั่นสินค้าของคุณ</label>
+                                            <textarea type="text" class="form-control" id="detailpromotion" name="detailpromotion"
+                                                rows="5" value="{{ old('detailpromotion') }}"></textarea>
+                                            <span class="text-danger">@error('detailpromotion'){{ $message }}
+                                                @enderror</span>
                                         </div>
-                                    </form>
 
+
+                                        <div class="col-12 py-2">
+                                            <label for="image" class="fg-grey">อัพโหลดโปรโมชั่น</label>
+                                            <input type="file" class="form-control" id="image" name="image"
+                                                value="{{ old('image') }}">
+                                            <span class="text-danger">@error('image'){{ $message }}
+                                                @enderror</span>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <button type="submit" class="btn btn-primary px-5">สร้างโปรโมชั่น</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-
                     </div>
-
-
-
-
-                </main>
             </div>
+
+        </div>
+        </main>
+        </div>
         </div>
     @endif
 

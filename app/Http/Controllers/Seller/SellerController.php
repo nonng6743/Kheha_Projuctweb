@@ -9,6 +9,7 @@ use App\Models\Chat;
 use App\Models\Chatmanager;
 use App\Models\Login;
 use App\Models\Product;
+use App\Models\Promotionseller;
 use App\Models\Reserve_area;
 use App\Models\Seller;
 use App\Models\Shop;
@@ -115,6 +116,21 @@ class SellerController extends Controller
         $message = Chatmanager::where('id_seller', $id_seller)->get();
 
         return view('dashboard.seller.chatmanager', compact('counts', 'message'));
+    }
+
+    public function createpromotion(Request $request){
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
+        $counts = $shops->count();
+        return view('dashboard.seller.createpromotion',compact('counts'));
+    }
+    function homepromotion(Request $request){
+        $id_seller = Auth::guard('seller')->user()->id;
+        $shops = Shop::where('id_seller', $id_seller)->get();
+        $counts = $shops->count();
+        $promotions = Promotionseller::where('id_seller',$id_seller)->get();
+        $countpromotion = $promotions->count();
+        return view('dashboard.seller.homepromotion',compact('counts','promotions','countpromotion'));
     }
     public function messagechartmanager(Request $request)
     {
@@ -394,6 +410,16 @@ class SellerController extends Controller
         echo "<script>alert('ลบข้อมูลสินค้าสำเร็จ')</script>";
         echo "<script>window.location.href='/seller/homeproducts'</script>";
     }
+    public function deletepromotion($id)
+    {
+        $img = Promotionseller::find($id)->image;
+        unlink('images/promotion_seller/' . $img);
+
+        $delete = Promotionseller::find($id)->delete();
+        echo "<script>alert('ลบข้อมูลสินค้าสำเร็จ')</script>";
+        echo "<script>window.location.href='/seller/homepromotion'</script>";
+    }
+
 
     public function area_add($id)
     {
@@ -429,6 +455,43 @@ class SellerController extends Controller
             $message->status = 'seller';
             $message->save();
             echo "<script>window.location.href='/seller/messageuser/userId=$request->id'</script>";
+        }
+    }
+    public function createpromotiondata(Request $request){
+        $request->validate([
+            'detailpromotion' => 'required',
+            'image' => 'required',
+        ], [
+            'detailpromotion.required' => "กรุณาป้อนข้อมูล",
+            'image.required' => "กรุณาอัพโหลดรูปโปรโมชั่นของคุณ",
+
+        ],);
+
+        //เข้ารหัสรูปภาพ
+        $image = $request->file('image');
+        $name_gen = hexdec(uniqid());
+        $img_ext = strtolower($image->getClientOriginalExtension());
+        $img = $name_gen . '.' . $img_ext;
+        //อัพโหลดภาพ
+        $upload_location = 'images/promotion_seller/';
+        $full_path = $upload_location . $img;
+
+        $id_seller = Auth::guard('seller')->user()->id;
+
+
+        $promotion = new Promotionseller();
+        $promotion->detailpromotion = $request->detailpromotion;
+        $promotion->image = $img;
+        $promotion->id_seller = $id_seller;
+        $promotion->status = 'no';
+        $save = $promotion->save();
+
+        if ($save) {
+            $image->move($upload_location, $img);
+            echo "<script>alert('เพิ่มข้อมูลโปรโมชั่นสินค้าสำเร็จ')</script>";
+            echo "<script>window.location.href='/seller/homepromotion'</script>";
+        } else {
+            return redirect()->back()->with('fail', 'ขออภัยไม่สามารถเพิ่มสินค้าได้');
         }
     }
 }

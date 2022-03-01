@@ -103,11 +103,14 @@ Route::prefix('seller')->name('seller.')->group(function () {
         Route::get('/homeproducts', [SellerController::class, 'homeproducts'])->name('products');
         Route::get('/editproduct/{id}', [SellerController::class, 'editproduct']);
         Route::get('/deleteproducts/{id}', [SellerController::class, 'deleteproducts']);
+        Route::get('/deletepromotion/{id}', [SellerController::class, 'deletepromotion']);
         Route::get('/addarea', [SellerController::class, 'addarea'])->name('addarea');
         Route::get('/area_add/{id}', [SellerController::class, 'area_add'])->name('area_add');
         Route::get('/usermessage', [SellerController::class, 'usermessage'])->name('usermessage');
         Route::get('/messageuser/userId={id}', [SellerController::class, 'messageuser']);
         Route::get('/messagemanager', [SellerController::class, 'messagemanager'])->name('messagemanager');
+        Route::get('/createpromotion', [SellerController::class, 'createpromotion'])->name('createpromotion');
+        Route::get('/homepromotion', [SellerController::class, 'homepromotion'])->name('homepromotion');
 
 
         Route::post('/messagemanager', [SellerController::class, 'messagechartmanager'])->name('messagechartmanager');
@@ -116,6 +119,7 @@ Route::prefix('seller')->name('seller.')->group(function () {
         Route::post('/createproduct', [SellerController::class, 'createproduct'])->name('createproduct');
         Route::post('/logout', [SellerController::class, 'logout'])->name('logout');
         Route::post('/updateproduct/{id}', [SellerController::class, 'updateproduct']);
+        Route::post('/createpromotion',[SellerController::class, 'createpromotiondata'])->name('createpromotiondata');
     });
 });
 
