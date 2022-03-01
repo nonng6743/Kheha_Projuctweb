@@ -8,6 +8,8 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\RelationshipController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\Manager\ManagerController;
+use Illuminate\Support\Facades\Http;
+use Laravel\Socialite\Facades\Socialite;
 
 
 /*
@@ -27,16 +29,17 @@ Route::get('/productCategory/{name}', [RelationshipController::class, 'productCa
 Route::get('/productsubcategory/{name}', [RelationshipController::class, 'productsubcategoryname']);
 Route::get('/searchproduct/{name}', [RelationshipController::class, 'searchproduct']);
 Route::get('/productall', [RelationshipController::class, 'productall']);
-Route::get('/shop/{id}',[RelationshipController::class,'shop']);
-Route::get('/report',[HomepageController::class, 'reportpage'])->name('reportpage');
-Route::get('/followshop/shopid={id}/{value}',[RelationshipController::class,'followshop']);
+Route::get('/shop/{id}', [RelationshipController::class, 'shop']);
+Route::get('/report', [HomepageController::class, 'reportpage'])->name('reportpage');
+Route::get('/followshop/shopid={id}/{value}', [RelationshipController::class, 'followshop']);
 
 Route::post('/reportpost', [HomepageController::class, 'reportpost'])->name('reportpost');
 Route::post('/searchproduct', [RelationshipController::class, 'searchproductname'])->name('searchname');
 Route::post('/message', [RelationshipController::class, 'message'])->name('message');
 
-
-
+//facebook login
+Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class,'handleFacebookCallback']);
 
 
 
@@ -53,7 +56,7 @@ Route::prefix('user')->name('user.')->group(function () {
     });
 
     Route::middleware(['auth:web', 'PreventBackHistory'])->group(function () {
-        Route::view('/home', 'dashboard.user.home')->name('home');
+        Route::get('/home', [UserController::class, 'home'])->name('home');
         Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     });
 });
@@ -69,19 +72,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/home', [AdminController::class, 'home'])->name('home');
         Route::view('/createmanager', 'dashboard.admin.createmanager')->name('createmanager');
         Route::get('/editmanager', [AdminController::class, 'editmanager'])->name('editmanager');
-        Route::get('/deletemanager/{id}',[AdminController::class,'deletemanager']);
+        Route::get('/deletemanager/{id}', [AdminController::class, 'deletemanager']);
         Route::get('/editseller', [AdminController::class, 'editseller'])->name('editseller');
-        Route::get('/deleteseller/{id}',[AdminController::class,'deleteseller']);
+        Route::get('/deleteseller/{id}', [AdminController::class, 'deleteseller']);
         Route::get('/edituser', [AdminController::class, 'edituser'])->name('edituser');
-        Route::get('/deleteuser/{id}',[AdminController::class,'deleteuser']);
+        Route::get('/deleteuser/{id}', [AdminController::class, 'deleteuser']);
         Route::get('/editshop', [AdminController::class, 'editshop'])->name('editshop');
-        Route::get('/deleteshop/{id}',[AdminController::class,'deleteshop']);
+        Route::get('/deleteshop/{id}', [AdminController::class, 'deleteshop']);
         Route::get('/editproduct', [AdminController::class, 'editproduct'])->name('editproduct');
-        Route::get('/deleteproduct/{id}',[AdminController::class,'deleteproduct']);
+        Route::get('/deleteproduct/{id}', [AdminController::class, 'deleteproduct']);
 
         Route::post('/createmanager', [AdminController::class, 'createmanager'])->name('createmanager');
         Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
-
     });
 });
 
@@ -100,7 +102,7 @@ Route::prefix('seller')->name('seller.')->group(function () {
         Route::get('/createshop', [SellerController::class, 'homecreateshop'])->name('createshop');
         Route::get('/homeproducts', [SellerController::class, 'homeproducts'])->name('products');
         Route::get('/editproduct/{id}', [SellerController::class, 'editproduct']);
-        Route::get('/deleteproducts/{id}',[SellerController::class,'deleteproducts']);
+        Route::get('/deleteproducts/{id}', [SellerController::class, 'deleteproducts']);
         Route::get('/addarea', [SellerController::class, 'addarea'])->name('addarea');
         Route::get('/area_add/{id}', [SellerController::class, 'area_add'])->name('area_add');
         Route::get('/usermessage', [SellerController::class, 'usermessage'])->name('usermessage');
@@ -129,12 +131,12 @@ Route::prefix('manager')->name('manager.')->group(function () {
         Route::get('/homecreatepromotion', [ManagerController::class, 'homecreatepromotion'])->name('homecreatepromotion');
         Route::get('/editseller', [ManagerController::class, 'editseller'])->name('editseller');
         Route::get('/editseller/{id}', [ManagerController::class, 'updateseller']);
-        Route::get('/deleteseller/{id}',[ManagerController::class,'deleteseller']);
+        Route::get('/deleteseller/{id}', [ManagerController::class, 'deleteseller']);
         Route::get('/homepromotion', [ManagerController::class, 'homepromotion'])->name('homepromotion');
-        Route::get('/deletepromotion/{id}',[ManagerController::class,'deletepromotion']);
+        Route::get('/deletepromotion/{id}', [ManagerController::class, 'deletepromotion']);
         Route::get('/createareas', [ManagerController::class, 'createareas'])->name('createareas');
         Route::get('/approveareas', [ManagerController::class, 'approveareas'])->name('approveareas');
-        Route::get('/addarea/{id}/{id_area}/{id_seller}',[ManagerController::class,'addarea']);
+        Route::get('/addarea/{id}/{id_area}/{id_seller}', [ManagerController::class, 'addarea']);
         Route::get('/messageseller', [ManagerController::class, 'messageseller'])->name('messageseller');
         Route::get('/messageseller/sellerId={id}', [ManagerController::class, 'messagesellers']);
         Route::get('/reportpage', [ManagerController::class, 'reportpage'])->name('reportpage');
@@ -143,7 +145,5 @@ Route::prefix('manager')->name('manager.')->group(function () {
         Route::post('/createarea', [ManagerController::class, 'createarea'])->name('createarea');
         Route::post('/homecreatepromotion', [ManagerController::class, 'createpromotion'])->name('createpromotion');
         Route::post('/logout', [ManagerController::class, 'logout'])->name('logout');
-
-
     });
 });

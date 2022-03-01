@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Follow;
 use App\Models\Login;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    function home(Request $request){
+        $user_id = Auth::guard('web')->user()->id;
+        $follow = Follow::where('id_user',$user_id)->get();
+        $countfollow = $follow->count();
+        return view('dashboard.user.home',compact('countfollow'));
+    }
     function create(Request $request)
     {
         //Validate Inputs
@@ -74,6 +81,8 @@ class UserController extends Controller
             return redirect()->route('user.login')->with('fail','การเข้าสู้ระบบเกิดข้อผิดพลาด กรุณาเข้าสู่ระบบอีกครั้ง');
         }
     }
+
+
 
     function logout(){
         Auth::guard('web')->logout();

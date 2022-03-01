@@ -46,7 +46,6 @@
                                 <li class="nav-item">
                                     <a href="{{ route('user.register') }}" class="nav-link">สมัครสมาชิก</a>
                                 </li>
-
                             @endif
                         @endauth
                     @endif
@@ -71,24 +70,41 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" class="form-control" name="email" value="{{ old('email') }}">
-                        <span class="text-danger">@error('email'){{ $message }}@enderror</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" value="{{ old('password') }}">
-                            <span class="text-danger">@error('password'){{ $message }}@enderror</span>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
-                            </div>
-                            <br>
-                            <a href="{{ route('user.register') }}">สมัครสมาชิก</a>
-                        </form>
+                        <span class="text-danger">
+                            @error('email')
+                                {{ $message }}
+                            @enderror
+                        </span>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" value="{{ old('password') }}">
+                        <span class="text-danger">
+                            @error('password')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <br>
+                    </div>
+                    <div class="form-group">
+                        <div class="from-control">
+                            <button type="submit" class="btn btn-success btn-block">เข้าสู่ระบบ</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="from-control">
+
+                            <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-block">เข้าสู่ระบบด้วย
+                                Facebook</a>
+                        </div>
+                    </div>
+
+                </form>
             </div>
+        </div>
+    </div>
 
-        </body>
+</body>
 
-        </html>
+</html>
