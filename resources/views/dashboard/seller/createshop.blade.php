@@ -47,6 +47,17 @@
             color: #0d6efd;
         }
 
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
     </style>
 </head>
 
@@ -80,10 +91,7 @@
             <br>
             <h1>รอการอนุมัติจากผู้จัดการตลาด</h1>
         </div>
-
     @else
-
-
         <div class="container-fluid">
             <div class="row">
                 <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -115,93 +123,97 @@
                                     </a>
                                 </li>
                             @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('seller.homeshop') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-shopping-bag">
-                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                    </svg>
-                                    <span class="ml-2">ร้านค้าของคุณ</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('seller.createproduct') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-edit">
-                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                    </svg>
-                                    <span class="ml-2">สร้างสินค้าของคุณ</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('seller.createpromotion') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-edit">
-                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                    </svg>
-                                    <span class="ml-2">สร้างโปรโมชั่นสินค้า</span>
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('seller.homeshop') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-shopping-bag">
+                                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                        </svg>
+                                        <span class="ml-2">ร้านค้าของคุณ</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('seller.createproduct') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                        <span class="ml-2">สร้างสินค้าของคุณ</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('seller.createpromotion') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                        <span class="ml-2">สร้างโปรโมชั่นสินค้า</span>
+                                    </a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.products')}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-shopping-cart">
-                                        <circle cx="9" cy="21" r="1"></circle>
-                                        <circle cx="20" cy="21" r="1"></circle>
-                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
-                                        </path>
-                                    </svg>
-                                    <span class="ml-2">สินค้าของคุณ</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.addarea')}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-layers">
-                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                        <polyline points="2 17 12 22 22 17"></polyline>
-                                        <polyline points="2 12 12 17 22 12"></polyline>
-                                    </svg>
-                                    <span class="ml-2">จองเเผงร้านค้า</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.usermessage')}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-users">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                                    <span class="ml-2">รายชื่อผู้ติดต่อคุณ</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.messagemanager')}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-users">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                                    <span class="ml-2">ติดต่อผู้จัดการ</span>
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('seller.products') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-shopping-cart">
+                                            <circle cx="9" cy="21" r="1"></circle>
+                                            <circle cx="20" cy="21" r="1"></circle>
+                                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                            </path>
+                                        </svg>
+                                        <span class="ml-2">สินค้าของคุณ</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('seller.addarea') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-layers">
+                                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                            <polyline points="2 17 12 22 22 17"></polyline>
+                                            <polyline points="2 12 12 17 22 12"></polyline>
+                                        </svg>
+                                        <span class="ml-2">จองเเผงร้านค้า</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('seller.usermessage') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-users">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>
+                                        <span class="ml-2">รายชื่อผู้ติดต่อคุณ</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('seller.messagemanager') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-users">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>
+                                        <span class="ml-2">ติดต่อผู้จัดการ</span>
+                                    </a>
+                                </li>
                             @endif
                         </ul>
                     </div>
@@ -241,8 +253,11 @@
                                                         class="fg-grey">ชื่อร้านค้าของท่าน</label>
                                                     <input type="text" class="form-control" id="nameshop"
                                                         name="nameshop" value="{{ old('nameshop') }}">
-                                                    <span class="text-danger">@error('nameshop'){{ $message }}
-                                                        @enderror</span>
+                                                    <span class="text-danger">
+                                                        @error('nameshop')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </span>
                                                 </div>
                                                 <div class="col-12 py-2">
                                                     <label for="category_type"
@@ -256,9 +271,11 @@
                                                         @endforeach
                                                     </select>
 
-                                                    <span
-                                                        class="text-danger">@error('category_type'){{ $message }}
-                                                        @enderror</span>
+                                                    <span class="text-danger">
+                                                        @error('category_type')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </span>
                                                 </div>
                                                 <div class="col-12 py-2">
                                                     <label class="fg-grey">ตำเเหน่งร้านค้าของท่าน</label>
@@ -267,48 +284,89 @@
                                                     <label for="lat" class="fg-grey">Latitude</label>
                                                     <input type="text" class="form-control" id="lat" name="lat"
                                                         value="{{ old('lat') }}">
-                                                    <span class="text-danger">@error('lat'){{ $message }}
-                                                        @enderror</span>
+                                                    <span class="text-danger">
+                                                        @error('lat')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </span>
                                                 </div>
                                                 <div class="col-sm-6 py-2">
                                                     <label for="long" class="fg-grey">Longitude</label>
-                                                    <input type="text" class="form-control" id="long" name="long"
+                                                    <input type="text" class="form-control" id="long" name="long" pl
                                                         value="{{ old('long') }}">
-                                                    <span class="text-danger">@error('long'){{ $message }}
-                                                        @enderror</span>
+                                                    <span class="text-danger">
+                                                        @error('long')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </span>
                                                 </div>
                                                 <div class="col-12 py-2">
                                                     <label for="image"
                                                         class="fg-grey">อัพโหลดรูปภาพของคุณ</label>
                                                     <input type="file" class="form-control" id="image" name="image"
                                                         value="{{ old('image') }}">
-                                                    <span class="text-danger">@error('image'){{ $message }}
-                                                        @enderror</span>
+                                                    <span class="text-danger">
+                                                        @error('image')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </span>
                                                 </div>
+
                                                 <div class="col-12 mt-3">
                                                     <button type="submit"
                                                         class="btn btn-primary px-5">สร้างร้านค้า</button>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-
-
-
                 </main>
             </div>
         </div>
     @endif
+    <div id="map"></div>
+
+
+
+    <script>
+        function initMap() {
+            var myOptions = {
+                zoom: 20,
+                center: new google.maps.LatLng(14.0284929, 100.7295797),
+            };
+            var map = new google.maps.Map(document.getElementById('map'),
+                myOptions);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(14.0284929, 100.7295797),
+                draggalbe: true
+            });
+            var infowindow = new google.maps.InfoWindow({
+                map: map,
+                content: "ตลาดเคหะคลอง 6",
+                position: new google.maps.LatLng(14.0284929, 100.7295797),
+            });
+            google.maps.event.addListener(map, 'click', function(event) {
+                infowindow.open(map, marker);
+                infowindow.setContent("LatLng = " + event.latLng);
+                infowindow.setPosition(event.latLng);
+                marker.setPosition(event.latLng);
+                $("#lat").val(event.latLng.lat());
+                $("#long").val(event.latLng.lng());
+
+            });
+
+
+
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATSEBp-3BMGJh4j5Cpdk1XrP1Q_kcoOkk&callback=initMap&v=weekly"
+        async></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">

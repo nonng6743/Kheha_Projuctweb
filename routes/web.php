@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\RelationshipController;
@@ -150,4 +151,12 @@ Route::prefix('manager')->name('manager.')->group(function () {
         Route::post('/homecreatepromotion', [ManagerController::class, 'createpromotion'])->name('createpromotion');
         Route::post('/logout', [ManagerController::class, 'logout'])->name('logout');
     });
+
+
 });
+
+//Api
+Route::get('/api/date', [ApiController::class, 'testapi'])->name('testapi');
+Route::get('/api/add', [ApiController::class, 'add'])->name('add');
+Route::get('/api/createuser', [ApiController::class, 'addusers']);
+
