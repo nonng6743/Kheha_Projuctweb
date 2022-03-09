@@ -46,6 +46,17 @@
         .sidebar .nav-link.active {
             color: #0d6efd;
         }
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
 
     </style>
 </head>
@@ -240,21 +251,20 @@
                                         <span class="text-danger">@error('rentalfee'){{ $message }}
                                             @enderror</span>
                                     </div>
-                                    <div class="col-12 py-2">
+                                    <div class="col-sm-6 py-2">
                                         <label for="lat" class="fg-grey">lat</label>
                                         <input type="text" class="form-control" id="lat"
                                             name="lat" value="{{ old('lat') }}">
                                         <span class="text-danger">@error('lat'){{ $message }}
                                             @enderror</span>
                                     </div>
-                                    <div class="col-12 py-2">
+                                    <div class="col-sm-6 py-2">
                                         <label for="long" class="fg-grey">long	</label>
                                         <input type="text" class="form-control" id="long"
                                             name="long" value="{{ old('long') }}">
                                         <span class="text-danger">@error('long'){{ $message }}
                                             @enderror</span>
                                     </div>
-
 
                                     <div class="col-12 py-2">
                                         <label for="image" class="fg-grey">รูปเเผงร้านค้า</label>
@@ -272,12 +282,49 @@
                     </div>
                 </div>
 
-
-
-
             </main>
         </div>
     </div>
+
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+            var myOptions = {
+                zoom: 20,
+                center: new google.maps.LatLng(14.0284929, 100.7295797),
+            };
+            var map = new google.maps.Map(document.getElementById('map'),
+                myOptions);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(14.0284929, 100.7295797),
+                draggalbe: true
+            });
+            var infowindow = new google.maps.InfoWindow({
+                map: map,
+                content: "ตลาดเคหะคลอง 6",
+                position: new google.maps.LatLng(14.0284929, 100.7295797),
+            });
+            google.maps.event.addListener(map, 'click', function(event) {
+                infowindow.open(map, marker);
+                infowindow.setContent("LatLng = " + event.latLng);
+                infowindow.setPosition(event.latLng);
+                marker.setPosition(event.latLng);
+                $("#lat").val(event.latLng.lat());
+                $("#long").val(event.latLng.lng());
+
+            });
+
+
+
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATSEBp-3BMGJh4j5Cpdk1XrP1Q_kcoOkk&callback=initMap&v=weekly"
+        async></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
