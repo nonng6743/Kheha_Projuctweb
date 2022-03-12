@@ -124,7 +124,7 @@
                 <h4 class="my-3">ชื่อเจ้าของร้านค้า : {{ $shop->seller->firstname }}
                     {{ $shop->seller->lastname }}</h4>
                 <h5 class="my-3">เบอร์โทรศัพท์ติดต่อ: {{ $shop->seller->phone }}</h5>
-                <h5 class="my-3">ประเภทของร้านค้า : {{ $shop->category_type }}</h5>
+                <h5 class="my-3">ประเภทของร้านค้า : {{ $shop->category->namecategory }}</h5>
                 @php
                     $lat = $shop->lat;
                     $lng = $shop->long;

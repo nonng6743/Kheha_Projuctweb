@@ -27,5 +27,8 @@ class Shop extends Model
     public function area(){
         return $this->hasOne(Area::class,'id','id_area');
     }
+    public function category(){
+        return $this->hasOne(Categorie::class, 'id','category_type');
+    }
 
 }

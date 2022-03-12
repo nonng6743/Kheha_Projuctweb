@@ -266,7 +266,7 @@
                                                         id="category_type" name="category_type"
                                                         value="{{ old('category_type') }}">
                                                         @foreach ($categories as $row)
-                                                            <option value="{{ $row->namecategory }}">
+                                                            <option value="{{ $row->id}}">
                                                                 {{ $row->namecategory }}</option>
                                                         @endforeach
                                                     </select>
