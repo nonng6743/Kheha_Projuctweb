@@ -477,6 +477,11 @@ class SellerController extends Controller
         $full_path = $upload_location . $img;
 
         $id_seller = Auth::guard('seller')->user()->id;
+        $shop = Shop::where('id_seller',$id_seller)->get();
+        foreach ($shop as $row) {
+            $id_shop = $row->id;
+        }
+        
 
 
         $promotion = new Promotionseller();
@@ -484,6 +489,7 @@ class SellerController extends Controller
         $promotion->image = $img;
         $promotion->id_seller = $id_seller;
         $promotion->status = 'no';
+        $promotion->id_shop = $id_shop;
         $save = $promotion->save();
 
         if ($save) {

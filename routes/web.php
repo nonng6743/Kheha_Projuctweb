@@ -146,6 +146,10 @@ Route::prefix('manager')->name('manager.')->group(function () {
         Route::get('/messageseller', [ManagerController::class, 'messageseller'])->name('messageseller');
         Route::get('/messageseller/sellerId={id}', [ManagerController::class, 'messagesellers']);
         Route::get('/reportpage', [ManagerController::class, 'reportpage'])->name('reportpage');
+        Route::get('/editpromotionsellers', [ManagerController::class, 'editpromotionseller'])->name('editpromotionseller');
+        Route::get('/updatestatuspromotor/{id}', [ManagerController::class, 'updatestatuspromotor'])->name('updatestatuspromotor');
+        Route::get('/cancelpromotionseller/{id}', [ManagerController::class, 'cancelpromotionseller'])->name('cancelpromotionseller');
+        Route::get('homepromotionseller',[ManagerController::class, 'homepromotionseller'])->name('homepromotionseller');
 
         Route::post('/messageseller', [ManagerController::class, 'messagechartseller'])->name('messagechartseller');
         Route::post('/createarea', [ManagerController::class, 'createarea'])->name('createarea');

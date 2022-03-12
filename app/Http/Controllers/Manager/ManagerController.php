@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Manager;
 use App\Models\Promotion;
+use App\Models\Promotionseller;
 use App\Models\Report;
 use App\Models\Reserve_area;
 use App\Models\Seller;
@@ -63,6 +64,24 @@ class ManagerController extends Controller
         echo "<script>window.location.href='/manager/home'</script>";
     }
 
+    function editpromotionseller(){
+        $promotionseller = Promotionseller::where('status', 'no')->get();
+        return view('dashboard.manager.editpromtionseller',compact('promotionseller'));
+    }
+
+    function updatestatuspromotor($id){
+        $update = Promotionseller::find($id)->update([
+            "status" => 'yes'
+        ]);
+        echo "<script>alert('อัพโปรโมชั่นสำเร็จ')</script>";
+        echo "<script>window.location.href='/manager/homepromotionseller'</script>";
+    }
+
+    function homepromotionseller(){
+        $promotionseller = Promotionseller::where('status','yes')->get();
+        return view('dashboard.manager.homepromotionseller',compact('promotionseller'));
+    }
+
     function logout()
     {
         Auth::guard('manager')->logout();
@@ -71,6 +90,7 @@ class ManagerController extends Controller
 
     function homecreatepromotion()
     {
+
         return view('dashboard.manager.createpromotion');
     }
 
@@ -226,5 +246,12 @@ class ManagerController extends Controller
         } else {
             return redirect()->back()->with('fail', 'Something went wrong, failed to register');
         }
+    }
+    function cancelpromotionseller($id){
+        $update = Promotionseller::find($id)->update([
+            "status" => 'no'
+        ]);
+        echo "<script>alert('ยกเลิกโปรโมชั่นสำเร็จ')</script>";
+        echo "<script>window.location.href='/manager/homepromotionseller'</script>";
     }
 }

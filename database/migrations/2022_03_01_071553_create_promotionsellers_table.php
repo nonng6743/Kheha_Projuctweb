@@ -19,6 +19,7 @@ class CreatePromotionsellersTable extends Migration
             $table->string('detailpromotion');
             $table->string('image');
             $table->string('status');
+            $table->integer('id_shop');
             $table->timestamps();
         });
     }
