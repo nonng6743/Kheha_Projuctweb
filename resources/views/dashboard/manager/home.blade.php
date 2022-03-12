@@ -88,7 +88,7 @@
                                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                                 </svg>
-                                <span class="ml-2">Dashboard</span>
+                                <span class="ml-2">หน้าเเรก</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -209,51 +209,44 @@
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                        <li class="breadcrumb-item"><a href="{{ route('manager.home') }}">หน้าเเรก</a></li>
                     </ol>
                 </nav>
-                <h1 class="h2">Dashboard</h1>
-                <p>This is the homepage of a simple admin interface which is part of a tutorial written on
-                    Themesberg</p>
+                <h1 class="h2">หน้าเเสดงผลข้อมูล</h1>
                 <div class="row my-4">
                     <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
                         <div class="card">
-                            <h5 class="card-header">Customers</h5>
+                            <h5 class="card-header">จำนวนสินค้าทั้งหมด</h5>
                             <div class="card-body">
-                                <h5 class="card-title">345k</h5>
-                                <p class="card-text">Feb 1 - Apr 1, United States</p>
-                                <p class="card-text text-success">18.2% increase since last month</p>
+                                <h3 class="card-title">{{$countproduct}} สินค้า</h3>
+                                <p class="card-text">จำนวนสินค้าในระบบทั้งหมด</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card">
-                            <h5 class="card-header">Revenue</h5>
+                            <h5 class="card-header">จำนวนร้านค้าทั้งหมด</h5>
                             <div class="card-body">
-                                <h5 class="card-title">$2.4k</h5>
-                                <p class="card-text">Feb 1 - Apr 1, United States</p>
-                                <p class="card-text text-success">4.6% increase since last month</p>
+                                <h3 class="card-title">{{$countshop}} ร้านค้า</h3>
+                                <p class="card-text">จำนวนร้านค้าในระบบทั้งหมด</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card">
-                            <h5 class="card-header">Purchases</h5>
+                            <h5 class="card-header">จำนวนบัญชีร้านค้า</h5>
                             <div class="card-body">
-                                <h5 class="card-title">43</h5>
-                                <p class="card-text">Feb 1 - Apr 1, United States</p>
-                                <p class="card-text text-danger">2.6% decrease since last month</p>
+                                <h3 class="card-title">{{$countseller}} บัญชี</h3>
+                                <p class="card-text">จำนวนบัญชีร้านค้าในระบบทั้งหมด</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card">
-                            <h5 class="card-header">Traffic</h5>
+                            <h5 class="card-header">จำนวนบัญชีสมาชิก</h5>
                             <div class="card-body">
-                                <h5 class="card-title">64k</h5>
-                                <p class="card-text">Feb 1 - Apr 1, United States</p>
-                                <p class="card-text text-success">2.5% increase since last month</p>
+                                <h3 class="card-title">{{$countuser}} บัญชี</h3>
+                                <p class="card-text">จำนวนบัญชีสมาชิกในระบบทั้งหมด</p>
                             </div>
                         </div>
                     </div>

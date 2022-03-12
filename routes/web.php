@@ -133,7 +133,7 @@ Route::prefix('manager')->name('manager.')->group(function () {
     });
 
     Route::middleware(['auth:manager', 'PreventBackHistory'])->group(function () {
-        Route::view('/home', 'dashboard.manager.home')->name('home');
+        Route::get('/',[ManagerController::class, 'home'])->name('home');
         Route::get('/homecreatepromotion', [ManagerController::class, 'homecreatepromotion'])->name('homecreatepromotion');
         Route::get('/editseller', [ManagerController::class, 'editseller'])->name('editseller');
         Route::get('/editseller/{id}', [ManagerController::class, 'updateseller']);

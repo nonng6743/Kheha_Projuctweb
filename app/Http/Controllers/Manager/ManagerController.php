@@ -9,17 +9,30 @@ use App\Models\Login;
 use Illuminate\Http\Request;
 
 use App\Models\Manager;
+use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\Promotionseller;
 use App\Models\Report;
 use App\Models\Reserve_area;
 use App\Models\Seller;
 use App\Models\Shop;
+use App\Models\User;
 use GuzzleHttp\Promise\Promise;
 use Illuminate\Support\Facades\Auth;
 
 class ManagerController extends Controller
 {
+    function home(){
+        $product = Product::all();
+        $countproduct = $product->count();
+        $shop = Shop::all();
+        $countshop = $shop->count();
+        $seller = Seller::all();
+        $countseller = $seller->count();
+        $user = User::all();
+        $countuser = $user->count();
+        return view('dashboard.manager.home',compact('countproduct','countshop','countseller','countuser'));
+    }
     function check(Request $request)
     {
         $request->validate([
