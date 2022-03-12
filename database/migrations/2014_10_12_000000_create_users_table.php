@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('gender');
             $table->string('phone');
             $table->string('image');
-            $table->string('id_facebook')->default('null');
             $table->rememberToken();
             $table->timestamps();
         });

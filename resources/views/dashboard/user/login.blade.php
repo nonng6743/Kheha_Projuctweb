@@ -95,7 +95,7 @@
                     <div class="form-group">
                         <div class="from-control">
 
-                            <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-block">เข้าสู่ระบบด้วย
+                            <a href="" class="btn btn-primary btn-block">เข้าสู่ระบบด้วย
                                 Facebook</a>
                         </div>
                     </div>

@@ -20,6 +20,21 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
+    <style>
+        #map {
+            height: 100%;
+
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
+
 </head>
 
 <body class="antialiased">
@@ -47,7 +62,7 @@
                         <a href="{{ route('seller.login') }}" class="nav-link">สำหรับร้านค้า</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('reportpage')}}" class="nav-link ">เเจ้งปัญหา</a>
+                        <a href="{{ route('reportpage') }}" class="nav-link ">เเจ้งปัญหา</a>
                     </li>
 
                     @if (Route::has('login'))
@@ -110,6 +125,17 @@
                     {{ $shop->seller->lastname }}</h4>
                 <h5 class="my-3">เบอร์โทรศัพท์ติดต่อ: {{ $shop->seller->phone }}</h5>
                 <h5 class="my-3">ประเภทของร้านค้า : {{ $shop->category_type }}</h5>
+                @php
+                    $lat = $shop->lat;
+                    $lng = $shop->long;
+                    echo '<script type="text/javascript">
+                        ';
+                        echo "var lat = '$lat';";
+                        echo "var lng = '$lng';"; // ส่งค่า $data จาก PHP ไปยังตัวแปร data ของ Javascript
+                        echo '
+                    </script>';
+                @endphp
+
                 @if ($count > 0)
                     @if ($countfollow > 0)
                         @php
@@ -195,13 +221,43 @@
                             </main>
                         </div>
                     </div>
+
             </div>
         </div>
 
         @endif
 
     </div>
-    <h1></h1>
+    <hr>
+    <div class="cantainer">
+        <div class="alert alert-primary" role="alert">
+            ตำเเหน่งร้านค้า
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="map"></div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <hr>
     <div class="container">
         <div class="alert alert-primary" role="alert">
             สินค้าจากร้านค้า
@@ -245,7 +301,30 @@
     </div>
 
 
+    <script type="text/javascript">
+        var map;
 
+        var position = {
+            lat: (parseFloat(lat)),
+            lng: (parseFloat(lng))
+        };
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: position,
+                zoom: 18
+            });
+            var marker = new google.maps.Marker({
+                position: position,
+                map: map,
+            });
+
+        }
+    </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATSEBp-3BMGJh4j5Cpdk1XrP1Q_kcoOkk&callback=initMap&libraries=&v=weekly"
+        async></script>
 
 
 

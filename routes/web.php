@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\FaceBookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\RelationshipController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\Manager\ManagerController;
 use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
-
+use Laravel\Socialite\Two\FacebookProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -154,6 +155,7 @@ Route::prefix('manager')->name('manager.')->group(function () {
 
 
 });
+
 
 //Api
 Route::get('/api/date', [ApiController::class, 'testapi'])->name('testapi');
