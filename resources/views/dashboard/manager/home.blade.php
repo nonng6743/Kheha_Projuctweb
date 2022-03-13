@@ -234,10 +234,10 @@
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                         <div class="card">
-                            <h5 class="card-header">จำนวนบัญชีร้านค้า</h5>
+                            <h5 class="card-header">จำนวนบัญชีผู้ขาย</h5>
                             <div class="card-body">
                                 <h3 class="card-title">{{$countseller}} บัญชี</h3>
-                                <p class="card-text">จำนวนบัญชีร้านค้าในระบบทั้งหมด</p>
+                                <p class="card-text">จำนวนบัญชีผู้ขายในระบบทั้งหมด</p>
                             </div>
                         </div>
                     </div>
@@ -248,10 +248,77 @@
                                 <h3 class="card-title">{{$countuser}} บัญชี</h3>
                                 <p class="card-text">จำนวนบัญชีสมาชิกในระบบทั้งหมด</p>
                             </div>
+                            <br>
+                        </div>
+                    </div>
+                    <h4 class="h4">รายการผู้ใช้งานในระบบ 1 วัน </h4>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <br>
+                        <div class="card">
+                            <h5 class="card-header">บัญชีสมาชิก</h5>
+                            <div class="card-body">
+                                <h3 class="card-title">{{$countloginusertoday}} </h3>
+                                <p class="card-text">ยอดการเข้าใช้งานระบบในวันนี้</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <br>
+                        <div class="card">
+                            <h5 class="card-header">บัญชีผู้ขาย</h5>
+                            <div class="card-body">
+                                <h3 class="card-title">{{$countloginsellertoday}} </h3>
+                                <p class="card-text">ยอดการเข้าใช้งานระบบในวันนี้</p>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <h4 class="h4">รายการผู้ใช้งานในระบบ 1 สัปดาห์ </h4>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <br>
+                        <div class="card">
+                            <h5 class="card-header">บัญชีสมาชิก</h5>
+                            <div class="card-body">
+                                <h3 class="card-title">{{$countloginuser7daytoday}} </h3>
+                                <p class="card-text">ยอดการเข้าใช้งานระบบใน 7 วัน</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <br>
+                        <div class="card">
+                            <h5 class="card-header">บัญชีผู้ขาย</h5>
+                            <div class="card-body">
+                                <h3 class="card-title">{{$countloginseller7daytoday}} </h3>
+                                <p class="card-text">ยอดการเข้าใช้งานระบบใน 7 วัน</p>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <h4 class="h4">รายการผู้ใช้งานในระบบ 1 เดือน </h4>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <br>
+                        <div class="card">
+                            <h5 class="card-header">บัญชีสมาชิก</h5>
+                            <div class="card-body">
+                                <h3 class="card-title">{{$countloginuser30daytoday}} </h3>
+                                <p class="card-text">ยอดการเข้าใช้งานระบบใน 30 วัน</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <br>
+                        <div class="card">
+                            <h5 class="card-header">บัญชีผู้ขาย</h5>
+                            <div class="card-body">
+                                <h3 class="card-title">{{$countloginseller7daytoday}} </h3>
+                                <p class="card-text">ยอดการเข้าใช้งานระบบใน 7 วัน</p>
+                            </div>
+                            <br>
                         </div>
                     </div>
                 </div>
-               
+
             </main>
         </div>
     </div>

@@ -17,21 +17,45 @@ use App\Models\Reserve_area;
 use App\Models\Seller;
 use App\Models\Shop;
 use App\Models\User;
+use Carbon\Carbon;
 use GuzzleHttp\Promise\Promise;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ManagerController extends Controller
 {
     function home(){
         $product = Product::all();
         $countproduct = $product->count();
+
         $shop = Shop::all();
         $countshop = $shop->count();
+
         $seller = Seller::all();
         $countseller = $seller->count();
+
         $user = User::all();
         $countuser = $user->count();
-        return view('dashboard.manager.home',compact('countproduct','countshop','countseller','countuser'));
+
+        $loginuser = Login::whereDate('created_at',Carbon::today())->where('typeuser','user')->get();
+        $countloginusertoday = $loginuser->count();
+
+        $loginseller = Login::whereDate('created_at',Carbon::today())->where('typeuser','seller')->get();
+        $countloginsellertoday = $loginseller->count();
+
+        $loginuser7day = Login::whereDate('created_at', '>=',Carbon::today()->subDay(7))->where('typeuser','user')->get();
+        $countloginuser7daytoday = $loginuser7day->count();
+
+        $loginseller7day = Login::whereDate('created_at', '>=',Carbon::today()->subDay(7))->where('typeuser','seller')->get();
+        $countloginseller7daytoday = $loginseller7day->count();
+
+        $loginuser30day = Login::whereDate('created_at', '>=',Carbon::today()->subDay(30))->where('typeuser','user')->get();
+        $countloginuser30daytoday = $loginuser30day->count();
+
+        $loginseller30day = Login::whereDate('created_at', '>=',Carbon::today()->subDay(30))->where('typeuser','seller')->get();
+        $countloginseller30daytoday = $loginseller30day->count();
+
+        return view('dashboard.manager.home',compact('countproduct','countshop','countseller','countuser','countloginusertoday','countloginsellertoday','countloginuser7daytoday','countloginseller7daytoday','countloginuser30daytoday','countloginseller30daytoday'));
     }
     function check(Request $request)
     {
