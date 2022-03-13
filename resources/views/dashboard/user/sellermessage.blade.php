@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>User HomeMessage</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <link rel="stylesheet" href="/css/stylechat.css">
     <style>
         .sidebar {
             position: fixed;
@@ -92,18 +93,28 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.usermessage')}}">
+                            <a class="nav-link" href="{{ route('user.usermessage') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-users">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-users">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
                                 <span class="ml-2">รายชื่อผู้ติดต่อคุณ</span>
                             </a>
                         </li>
+                        @php($i = 1)
+                        @foreach ($idmessage as $row)
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ url('user/messageseller/userId=' . $row->id_shop) }}">
+                                    <span class="ml-2">{{ $i++ }}. {{ $row->shop->nameshop }}
+                                       </span>
+                                </a>
+                            </li>
+                        @endforeach
 
                     </ul>
                 </div>
@@ -112,19 +123,68 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('user.home') }}">หน้าเเรก</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">รายชื่อผู้ติดต่อคุณ</li>
                     </ol>
                 </nav>
-                <h1 class="h2">หน้าเเรก</h1>
-                <div class="row my-4">
-                    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                        <div class="card">
-                            <h5 class="card-header">จำนวนร้านค้าที่คุณติดตาม</h5>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $countfollow }} ร้านค้า</h5>
+
+                <div class="col-12 col-xl mb-4 mb-lg-0">
+                    <div class="card">
+                        <h5 class="card-header">ข้อความการติดต่อจาก {{ $row->shop->nameshop }}</h5>
+                        <div class="card-body ">
+                            <div class="container p-0">
+                                <div class="card">
+                                    <div class="row g-0">
+                                        <div class="position-relative">
+                                            <div class="chat-messages ">
+                                                <br>
+                                                @foreach ($message as $row)
+                                                    @if ($row->status === 'user')
+                                                        <div class="chat-message-right pb-4">
+                                                            <div
+                                                                class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                                <div class="font-weight-bold mb-1">
+                                                                    คุณ</div>
+                                                                {{ $row->message }}
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    @if ($row->status === 'seller')
+                                                        <div class="chat-message-left pb-4">
+                                                            <div
+                                                                class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                                <div class="font-weight-bold mb-1">
+                                                                    {{ $row->shop->nameshop }}
+                                                                </div>
+                                                                {{ $row->message }}
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-grow-0 py-3 px-4 border-top">
+                                        <form class="d-flex"
+                                            action="{{ route('user.messagechatseller', ['id' => $row->shop->id]) }}"
+                                            method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="ส่งข้อความหาร้านค้า" name="message"
+                                                    id="message" value="{{ old('message') }} ">
+                                                <button type="submit" name="sand"
+                                                    class="btn btn-warning">ส่ง</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </main>
         </div>
     </div>
@@ -146,7 +206,6 @@
                 [23000, 25000, 19000, 34000, 56000, 64000]
             ]
         }, {
-
             low: 0,
             showArea: true
         });

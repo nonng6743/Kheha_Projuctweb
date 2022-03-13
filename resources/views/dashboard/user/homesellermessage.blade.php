@@ -104,6 +104,16 @@
                                 <span class="ml-2">รายชื่อผู้ติดต่อคุณ</span>
                             </a>
                         </li>
+                        @php($i = 1)
+                        @foreach ($idmessage as $row)
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ url('user/messageseller/userId=' . $row->id_shop) }}">
+                                    <span class="ml-2">{{ $i++ }}. {{ $row->shop->nameshop }}
+                                       </span>
+                                </a>
+                            </li>
+                        @endforeach
 
                     </ul>
                 </div>
@@ -112,19 +122,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('user.home') }}">หน้าเเรก</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">รายชื่อผู้ติดต่อคุณ</li>
                     </ol>
                 </nav>
-                <h1 class="h2">หน้าเเรก</h1>
-                <div class="row my-4">
-                    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                        <div class="card">
-                            <h5 class="card-header">จำนวนร้านค้าที่คุณติดตาม</h5>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $countfollow }} ร้านค้า</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </main>
         </div>
     </div>

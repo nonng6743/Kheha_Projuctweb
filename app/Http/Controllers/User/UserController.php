@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chat;
 use App\Models\Follow;
 use App\Models\Login;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +18,33 @@ class UserController extends Controller
         $follow = Follow::where('id_user',$user_id)->get();
         $countfollow = $follow->count();
         return view('dashboard.user.home',compact('countfollow'));
+    }
+    function usermessage(Request $request){
+        $user_id = Auth::guard('web')->user()->id;
+        $idmessage = Chat::select('id_shop')->distinct()->where('id_user', $user_id)->get();
+        return view('dashboard.user.homesellermessage',compact('idmessage'))->render();
+    }
+    function messageseller($id){
+        $user_id = Auth::guard('web')->user()->id;
+        $idmessage = Chat::select('id_shop')->distinct()->where('id_user', $user_id)->get();
+        $message = Chat::where('id_user', $user_id)->where('id_shop', $id)->get();
+        return view('dashboard.user.sellermessage',compact('idmessage','message'));
+    }
+
+    function messagechatseller(Request $request){
+        $user_id = Auth::guard('web')->user()->id;
+        if (!$request->message) {
+            echo "<script>alert('กรุณาระบุข้อความ')</script>";
+            echo "<script>window.location.href='/user/messageseller/userId=$request->id'</script>";
+        } else {
+            $message = new Chat();
+            $message->id_user = $user_id;
+            $message->id_shop = $request->id;
+            $message->message = $request->message;
+            $message->status = 'user';
+            $message->save();
+            echo "<script>window.location.href='/user/messageseller/userId=$request->id'</script>";
+        }
     }
     function create(Request $request)
     {

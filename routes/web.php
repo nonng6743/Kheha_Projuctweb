@@ -59,7 +59,10 @@ Route::prefix('user')->name('user.')->group(function () {
 
     Route::middleware(['auth:web', 'PreventBackHistory'])->group(function () {
         Route::get('/home', [UserController::class, 'home'])->name('home');
+        Route::get('/messageseller/userId={id}', [UserController::class, 'messageseller']);
+        Route::get('/usermessage', [UserController::class, 'usermessage'])->name('usermessage');
         Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+        Route::post('/messagechatseller', [UserController::class, 'messagechatseller'])->name('messagechatseller');
     });
 });
 

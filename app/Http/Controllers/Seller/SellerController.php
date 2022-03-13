@@ -24,7 +24,14 @@ class SellerController extends Controller
         $id_seller = Auth::guard('seller')->user()->id;
         $shops = Shop::where('id_seller', $id_seller)->get();
         $counts = $shops->count();
-        return view('dashboard.seller.home', compact('counts'));
+        foreach ($shops as $row){
+            $id_shop = $row->id;
+        }
+        $product = Product::where('id_shop', $id_shop)->get();
+        $countproduct = $product->count();
+
+        
+        return view('dashboard.seller.home', compact('counts','countproduct','product'));
     }
 
     function homeshop(Request $request)
@@ -481,7 +488,7 @@ class SellerController extends Controller
         foreach ($shop as $row) {
             $id_shop = $row->id;
         }
-        
+
 
 
         $promotion = new Promotionseller();
