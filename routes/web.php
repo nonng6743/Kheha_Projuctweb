@@ -34,6 +34,8 @@ Route::get('/productall', [RelationshipController::class, 'productall']);
 Route::get('/shop/{id}', [RelationshipController::class, 'shop']);
 Route::get('/report', [HomepageController::class, 'reportpage'])->name('reportpage');
 Route::get('/followshop/shopid={id}/{value}', [RelationshipController::class, 'followshop']);
+Route::get('/promotionseller', [HomepageController::class, 'promotionseller']);
+Route::get('promotionseller/{id}',[HomepageController::class,'promotionsellershop']);
 
 Route::post('/reportpost', [HomepageController::class, 'reportpost'])->name('reportpost');
 Route::post('/searchproduct', [RelationshipController::class, 'searchproductname'])->name('searchname');
@@ -166,6 +168,8 @@ Route::prefix('manager')->name('manager.')->group(function () {
 
 //Api
 Route::get('/api/date', [ApiController::class, 'testapi'])->name('testapi');
-Route::get('/api/add', [ApiController::class, 'add'])->name('add');
-Route::get('/api/createuser', [ApiController::class, 'addusers']);
-
+Route::get('/api/loginuser', [ApiController::class, 'loginuser'])->name('loginuser');
+Route::get('/api/loginseller', [ApiController::class, 'loginseller'])->name('loginseller');
+Route::get('/api/adduser', [ApiController::class, 'addusers']);
+Route::get('/api/addseller', [ApiController::class, 'addseller']);
+Route::get('/api/loginmanager', [ApiController::class, 'loginmanager'])->name('loginmanager');

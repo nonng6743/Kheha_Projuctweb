@@ -19,8 +19,12 @@ class RelationshipController extends Controller
     public function productname($id)
     {
         $product = Product::find($id);
+        $id_shop = $product->id_shop;
         $id_subcategory = $product->id_subcategory;
-        $subproduct = Product::where('id_subcategory', $id_subcategory)->get();
+        $subproduct = Product::where('id_subcategory', $id_subcategory)->paginate(12);
+        $productshop = Product::where('id_shop', $id_shop)->paginate(8);
+
+        
 
         if (Auth::guard('web')->check()) {
             $user_id = Auth::guard('web')->user()->id;
@@ -48,7 +52,7 @@ class RelationshipController extends Controller
                 $inactionusers->save();
 
 
-                return view('pageproduct', compact('product', 'counts', 'subproduct'));
+                return view('pageproduct', compact('product', 'counts', 'subproduct','productshop'));
             }
             foreach ($actionusers  as $user) {
                 $iduser_actionuser = $user->id;
@@ -64,7 +68,7 @@ class RelationshipController extends Controller
                 'view' => $counts
             ]);
 
-            return view('pageproduct', compact('product', 'counts', 'subproduct'));
+            return view('pageproduct', compact('product', 'counts', 'subproduct','productshop'));
         }
 
         $user_id = 0;
@@ -90,7 +94,7 @@ class RelationshipController extends Controller
             $inactionusers->view = $countcheckactionuser;
             $inactionusers->save();
 
-            return view('pageproduct', compact('product', 'counts', 'subproduct'));
+            return view('pageproduct', compact('product', 'counts', 'subproduct','productshop'));
         }
 
         foreach ($actionusers  as $user) {
@@ -107,7 +111,7 @@ class RelationshipController extends Controller
             'view' => $counts
         ]);
 
-        return view('pageproduct', compact('product', 'counts', 'subproduct'));
+        return view('pageproduct', compact('product', 'counts', 'subproduct','productshop'));
     }
 
     public function productCategoryname($name)

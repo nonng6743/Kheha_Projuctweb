@@ -13,14 +13,11 @@ class Promotionseller extends Model
         'detailpromotion',
         'status',
         'image',
-        'id_shop'
+
     ];
 
     public function seller(){
         return $this->hasOne(Seller::class,'id','id_seller');
-    }
-    public function shop(){
-        return $this->hasOne(Shop::class,'id','id_shop');
     }
 
 }

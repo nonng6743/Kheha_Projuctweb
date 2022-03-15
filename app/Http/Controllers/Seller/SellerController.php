@@ -30,7 +30,7 @@ class SellerController extends Controller
         $product = Product::where('id_shop', $id_shop)->get();
         $countproduct = $product->count();
 
-        
+
         return view('dashboard.seller.home', compact('counts','countproduct','product'));
     }
 
@@ -68,7 +68,7 @@ class SellerController extends Controller
         foreach ($shops as $shop) {
             $id_shop = $shop->id;
         }
-        $products = Product::where('id_shop', $id_shop)->paginate(5);
+        $products = Product::where('id_shop', $id_shop)->paginate(10);
         return view('dashboard.seller.homeproducts', compact('counts'), compact('products'));
     }
 
